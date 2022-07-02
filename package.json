@@ -1,6 +1,6 @@
 {
   "name": "auto-grading",
-  "homepage": "https://july-12.github.io/auto-grading",
+  "homepage": "https://july-12.github.io/auto-grading/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "rm -rf docs && craco build && mv build docs",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "craco test",
