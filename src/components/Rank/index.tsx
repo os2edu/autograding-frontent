@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
-import { Tree, Table, Input, Space, Tag, Button } from 'antd'
-import { orderBy } from 'lodash'
+import { Tree, Table, Input, Space, Tag, Button, Select } from 'antd'
+import { orderBy, isEmpty } from 'lodash'
 import type { DataNode, DirectoryTreeProps } from 'antd/lib/tree'
 import type { IAssignment, IExercise } from './types'
 import Icon from '../../components/Icon'
@@ -12,6 +12,7 @@ import './index.less'
 
 const { DirectoryTree } = Tree
 const { Search } = Input
+const { Option } = Select
 
 interface IRankListProps {
   assignment?: IAssignment
@@ -26,7 +27,14 @@ const findAssignment = (key: string) => {
   }
 }
 
+interface ISearchProps {
+  name: string
+  assignment: string
+  language: string[]
+}
 const RankList = (props: IRankListProps) => {
+  const [query, setQuery] = useState<Partial<ISearchProps>>({})
+
   const columns = useMemo(
     () => [
       {
@@ -131,7 +139,7 @@ const RankList = (props: IRankListProps) => {
   )
 
   const assignmentId = props.assignment?.id
-  const dataSource: IExercise[] = useMemo(
+  let dataSource: IExercise[] = useMemo(
     () =>
       orderBy(
         exerciseData.filter((item) => item.assignmentId === assignmentId),
@@ -140,14 +148,60 @@ const RankList = (props: IRankListProps) => {
       ),
     [assignmentId]
   )
+  dataSource = dataSource.filter((item: IExercise) => {
+    let searchName = true
+    let searchAssignment = true
+    let searchLuanage = true
+    if (query.name) {
+      searchName = item.repoOwner.toLowerCase().includes(query.name.toLowerCase())
+    }
+
+    if (query.assignment) {
+      searchAssignment = item.assignmentTitle.toLowerCase().includes(query.assignment.toLowerCase())
+    }
+
+    if (!isEmpty(query.language)) {
+      searchLuanage = item.languages.some((l) => query.language?.includes(l))
+    }
+
+    return searchName && searchAssignment && searchLuanage
+  })
 
   const renderSearch = () => {
-    const onSearch = () => {}
+    const onChange = (key: keyof ISearchProps, v: string | string[]) => {
+      setQuery({ ...query, [key]: v })
+    }
+    const onSearch = (key: keyof ISearchProps, v: string | string[]) => {
+      console.log('key', key, v)
+      setQuery({ ...query, [key]: v })
+    }
     return (
       <Space size={60} style={{ marginBottom: 20 }}>
-        <Search placeholder="Name" onSearch={onSearch} style={{ width: 200 }} />
-        <Search placeholder="Assignment" onSearch={onSearch} style={{ width: 200 }} />
-        <Search placeholder="Language" onSearch={onSearch} style={{ width: 200 }} />
+        <Search
+          value={query.name}
+          placeholder="Name"
+          onChange={(e) => onChange('name', e.target.value.trim())}
+          // onSearch={(v) => onSearch('name', v)}
+          style={{ width: 200 }}
+        />
+        <Search
+          value={query.assignment}
+          placeholder="Assignment"
+          onChange={(e) => onChange('assignment', e.target.value.trim())}
+          // onSearch={(v) => onSearch('assignment', v)}
+          style={{ width: 200 }}
+        />
+        <Select
+          mode="multiple"
+          allowClear
+          style={{ width: 200 }}
+          placeholder="Language"
+          onChange={(v: string[]) => onSearch('language', v)}
+        >
+          {['Rust', 'C', 'C++', 'Go'].map((l) => (
+            <Option key={l}>{l}</Option>
+          ))}
+        </Select>
       </Space>
     )
   }
