@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/auto-grading/static/css/main.9dd94cb7.css",
-    "main.js": "/auto-grading/static/js/main.9190020a.js",
+    "main.js": "/auto-grading/static/js/main.a1400c9c.js",
     "static/js/787.9fee253d.chunk.js": "/auto-grading/static/js/787.9fee253d.chunk.js",
     "index.html": "/auto-grading/index.html",
     "main.9dd94cb7.css.map": "/auto-grading/static/css/main.9dd94cb7.css.map",
-    "main.9190020a.js.map": "/auto-grading/static/js/main.9190020a.js.map",
+    "main.a1400c9c.js.map": "/auto-grading/static/js/main.a1400c9c.js.map",
     "787.9fee253d.chunk.js.map": "/auto-grading/static/js/787.9fee253d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9dd94cb7.css",
-    "static/js/main.9190020a.js"
+    "static/js/main.a1400c9c.js"
   ]
 }
