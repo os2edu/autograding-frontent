@@ -1,0 +1,224 @@
+[
+  {
+    "id": "1fOE30",
+    "repoOwner": "张三",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 6,
+    "executeSpendTime": 2,
+    "languages": ["Rust", "C"],
+
+    "submitAt": "2022-06-24 12:14:00",
+    "updateAt": "2022-06-24 14:05:00"
+  },
+  {
+    "id": "1fOE31",
+    "repoOwner": "李四",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 6,
+    "executeSpendTime": 5,
+    "languages": ["Rust", "C++"],
+
+    "submitAt": "2022-06-24 12:30:00",
+    "updateAt": "2022-06-24 15:05:00"
+  },
+  {
+    "id": "1fOE32",
+    "repoOwner": "Tony",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 9,
+    "executeSpendTime": 3,
+    "languages": ["Rust", "Go"],
+
+    "submitAt": "2022-06-24 13:14:00",
+    "updateAt": "2022-06-24 16:05:00"
+  },
+  {
+    "id": "1fOE33",
+    "repoOwner": "Keven",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 10,
+    "executeSpendTime": 2,
+    "languages": ["Rust"],
+
+    "submitAt": "2022-06-24 13:00:00",
+    "updateAt": "2022-06-24 14:05:00"
+  },
+  {
+    "id": "1fOE34",
+    "repoOwner": "Lucy",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 5,
+    "executeSpendTime": 9,
+    "languages": ["Rust"],
+
+    "submitAt": "2022-06-24 12:14:00",
+    "updateAt": "2022-06-24 14:05:00"
+  },
+  {
+    "id": "1fOE35",
+    "repoOwner": "Lily",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 10,
+    "executeSpendTime": 2,
+    "languages": ["Rust"],
+
+    "submitAt": "2022-06-24 14:14:00",
+    "updateAt": "2022-06-24 15:35:00"
+  },
+  {
+    "id": "1fOE36",
+    "repoOwner": "Xios",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 3,
+    "executeSpendTime": 2,
+    "languages": ["Rust"],
+
+    "submitAt": "2022-06-24 13:14:00",
+    "updateAt": "2022-06-24 14:05:00"
+  },
+  {
+    "id": "1fOE37",
+    "repoOwner": "张三",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 10,
+    "executeSpendTime": 1,
+    "languages": ["Rust"],
+
+    "submitAt": "2022-06-24 12:30:00",
+    "updateAt": "2022-06-24 14:05:00"
+  },
+  {
+    "id": "1fOE38",
+    "repoOwner": "OXD",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 10,
+    "executeSpendTime": 2,
+    "languages": ["Rust"],
+
+    "submitAt": "2022-06-24 12:20:00",
+    "updateAt": "2022-06-24 14:05:00"
+  },
+  {
+    "id": "1fOE39",
+    "repoOwner": "FDlo",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 5,
+    "executeSpendTime": 2,
+    "languages": ["Rust"],
+
+    "submitAt": "2022-06-24 13:14:00",
+    "updateAt": "2022-06-24 14:05:00"
+  },
+  {
+    "id": "1fOE40",
+    "repoOwner": "张三",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk21",
+    "assignmentTitle": "Lession 1",
+
+    "passCase": 10,
+    "executeSpendTime": 12,
+    "languages": ["Rust"],
+
+    "submitAt": "2022-06-24 16:14:00",
+    "updateAt": "2022-06-24 18:05:00"
+  },
+
+  {
+    "id": "1fOE41",
+    "repoOwner": "张三",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk22",
+    "assignmentTitle": "Lession 2",
+
+    "passCase": 6,
+    "executeSpendTime": 2,
+    "languages": ["C"],
+
+    "submitAt": "2022-06-24 16:14:00",
+    "updateAt": "2022-06-24 18:05:00"
+  },
+  {
+    "id": "1fOE42",
+    "repoOwner": "FDlo",
+    "repoURL": "https://github.com/{owner}/{repo}",
+
+    "classroomId": "1fO232",
+    "classroomTitle": "班级一",
+    "assignmentId": "1fOk22",
+    "assignmentTitle": "Lession 2",
+
+    "passCase": 3,
+    "executeSpendTime": 7,
+    "languages": ["C"],
+
+    "submitAt": "2022-06-24 15:14:00",
+    "updateAt": "2022-06-24 16:05:00"
+  }
+]
