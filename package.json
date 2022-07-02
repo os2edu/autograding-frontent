@@ -1,5 +1,6 @@
 {
   "name": "auto-grading",
+  "homepage": "https://july-12.github.io/auto-grading",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,7 +18,9 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build && mv build doc",
+    "build": "craco build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -42,6 +45,7 @@
   "devDependencies": {
     "@craco/craco": "^6.4.4",
     "craco-antd": "^2.0.0",
+    "gh-pages": "^4.0.0",
     "less-loader": "^11.0.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.7.4"
