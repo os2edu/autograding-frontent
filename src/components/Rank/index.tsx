@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from 'react'
 import { Tree, Table, Input, Space, Tag, Button } from 'antd'
+import { orderBy } from 'lodash'
 import type { DataNode, DirectoryTreeProps } from 'antd/lib/tree'
 import type { IAssignment, IExercise } from './types'
+import Icon from '../../components/Icon'
 
 import classRoom from '../../data/classAndAssignment.json'
 import exerciseData from '../../data/exercise.json'
@@ -25,13 +27,29 @@ const findAssignment = (key: string) => {
 }
 
 const RankList = (props: IRankListProps) => {
-  console.log(props)
   const columns = useMemo(
     () => [
       {
         title: 'Rank',
         dataIndex: 'rank',
-        key: 'rank'
+        key: 'rank',
+        render(_text: any, _record: IExercise, index: number) {
+          let content: any = index
+          switch (index) {
+            case 0:
+              content = <Icon symbol="icon-autojiangbei-" />
+              break
+            case 1:
+              content = <Icon symbol="icon-autojiangbei-1" />
+              break
+            case 2:
+              content = <Icon symbol="icon-autojiangbei-2" />
+              break
+            default:
+              break
+          }
+          return content
+        }
       },
       {
         title: 'Name',
@@ -114,18 +132,22 @@ const RankList = (props: IRankListProps) => {
 
   const assignmentId = props.assignment?.id
   const dataSource: IExercise[] = useMemo(
-    () => exerciseData.filter((item) => item.assignmentId === assignmentId),
+    () =>
+      orderBy(
+        exerciseData.filter((item) => item.assignmentId === assignmentId),
+        ['passCase', 'submitAt'],
+        ['desc', 'asc']
+      ),
     [assignmentId]
   )
-  console.log(dataSource)
 
   const renderSearch = () => {
     const onSearch = () => {}
     return (
       <Space size={60} style={{ marginBottom: 20 }}>
-        <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
-        <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
-        <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
+        <Search placeholder="Name" onSearch={onSearch} style={{ width: 200 }} />
+        <Search placeholder="Assignment" onSearch={onSearch} style={{ width: 200 }} />
+        <Search placeholder="Language" onSearch={onSearch} style={{ width: 200 }} />
       </Space>
     )
   }
