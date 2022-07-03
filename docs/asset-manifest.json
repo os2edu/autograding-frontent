@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/auto-grading/static/css/main.9dd94cb7.css",
-    "main.js": "/auto-grading/static/js/main.a1400c9c.js",
-    "static/js/787.9fee253d.chunk.js": "/auto-grading/static/js/787.9fee253d.chunk.js",
-    "index.html": "/auto-grading/index.html",
-    "main.9dd94cb7.css.map": "/auto-grading/static/css/main.9dd94cb7.css.map",
-    "main.a1400c9c.js.map": "/auto-grading/static/js/main.a1400c9c.js.map",
-    "787.9fee253d.chunk.js.map": "/auto-grading/static/js/787.9fee253d.chunk.js.map"
+    "main.css": "./static/css/main.9dd94cb7.css",
+    "main.js": "./static/js/main.6b267fa0.js",
+    "static/js/787.9fee253d.chunk.js": "./static/js/787.9fee253d.chunk.js",
+    "index.html": "./index.html",
+    "main.9dd94cb7.css.map": "./static/css/main.9dd94cb7.css.map",
+    "main.6b267fa0.js.map": "./static/js/main.6b267fa0.js.map",
+    "787.9fee253d.chunk.js.map": "./static/js/787.9fee253d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9dd94cb7.css",
-    "static/js/main.a1400c9c.js"
+    "static/js/main.6b267fa0.js"
   ]
 }
