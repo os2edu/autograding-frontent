@@ -12,7 +12,7 @@ function App() {
     {
       label: 'Rank',
       key: 'rank',
-      icon: <Icon symbol="icon-autorank" />
+      icon: <Icon symbol="icon-autorank1" />
     },
     {
       label: 'Example',
@@ -30,7 +30,7 @@ function App() {
 
   return (
     <div className="container">
-      <Icon symbol="icon-autoround_rank_fill" id="logo" />
+      <Icon symbol="icon-autojiangbei" id="logo" />
       <Menu
         className="main-menu"
         onClick={onClick}

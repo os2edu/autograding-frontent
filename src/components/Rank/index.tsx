@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Tree, Table, Input, Space, Tag, Button, Select } from 'antd'
+import type { ColumnsType } from 'antd/lib/table'
 import { orderBy, isEmpty } from 'lodash'
 import type { DataNode, DirectoryTreeProps } from 'antd/lib/tree'
 import type { IAssignment, IExercise } from './types'
@@ -35,11 +36,12 @@ interface ISearchProps {
 const RankList = (props: IRankListProps) => {
   const [query, setQuery] = useState<Partial<ISearchProps>>({})
 
-  const columns = useMemo(
+  const columns: ColumnsType<IExercise> = useMemo(
     () => [
       {
         title: 'Rank',
         dataIndex: 'rank',
+        align: 'center',
         key: 'rank',
         render(_text: any, _record: IExercise, index: number) {
           let content: any = index
@@ -56,21 +58,30 @@ const RankList = (props: IRankListProps) => {
             default:
               break
           }
-          return content
+          return <span className="rank-modal">{content}</span>
         }
       },
       {
         title: 'Name',
+        align: 'center',
         dataIndex: 'repoOwner',
+        className: "top-three",
         key: 'repoOwner'
       },
       {
-        title: 'Assignment',
-        dataIndex: 'assignmentTitle',
-        key: 'assignmentTitle'
+        title: 'Score',
+        align: 'center',
+        dataIndex: 'score',
+        className: "top-three",
+        key: 'score',
+        render(_text, record) {
+          let score = record.passCase / props.assignment!.useCases
+          return <span> {Number(score.toFixed(2)) * 100}</span>
+        }
       },
       {
         title: 'Result',
+        align: 'center',
         dataIndex: 'passCase',
         key: 'passCase',
         render(_text: string, record: IExercise) {
@@ -80,18 +91,30 @@ const RankList = (props: IRankListProps) => {
       },
       {
         title: 'Use Case',
+        align: 'center',
         dataIndex: 'useCase',
         key: 'useCase',
+        className: 'use-case',
         render(_text: string, record: IExercise) {
           return (
             <span>
               {record.passCase}/{props.assignment!.useCases}
+              <span style={{ marginLeft: 8 }}>
+                <Icon symbol="icon-autoround_rank_fill" />
+              </span>
             </span>
           )
         }
       },
       {
+        title: 'Commits',
+        align: 'center',
+        dataIndex: 'commits',
+        key: 'commits'
+      },
+      {
         title: 'times',
+        align: 'center',
         dataIndex: 'executeSpendTime',
         key: 'executeSpendTime',
         render(text: string) {
@@ -99,12 +122,8 @@ const RankList = (props: IRankListProps) => {
         }
       },
       {
-        title: 'Class',
-        dataIndex: 'classroomTitle',
-        key: 'classroomTitle'
-      },
-      {
         title: 'Language',
+        align: 'center',
         dataIndex: 'languages',
         key: 'languages',
         render(text: string[]) {
@@ -112,17 +131,14 @@ const RankList = (props: IRankListProps) => {
         }
       },
       {
-        title: 'submit Time',
-        dataIndex: 'submitAt',
-        key: 'submitAt'
-      },
-      {
         title: 'Update',
+        align: 'center',
         dataIndex: 'updateAt',
         key: 'updateAt'
       },
       {
         title: 'Link To Github',
+        align: 'center',
         dataIndex: 'operate',
         key: 'operate',
         render(_text: any, record: IExercise) {
@@ -208,7 +224,7 @@ const RankList = (props: IRankListProps) => {
   return (
     <div className="assignment-list">
       {renderSearch()}
-      <Table rowKey={'id'} dataSource={dataSource} columns={columns} size="middle" />
+      <Table className="rank-table" rowKey={'id'} dataSource={dataSource} columns={columns} size="middle" />
     </div>
   )
 }
@@ -244,6 +260,7 @@ const Rank = () => {
       <DirectoryTree
         className="classroom-tree"
         multiple
+        expandAction={false}
         defaultSelectedKeys={[selectedAssignmentId]}
         defaultExpandAll
         onSelect={onSelect}

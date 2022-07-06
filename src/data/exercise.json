@@ -12,6 +12,7 @@
     "passCase": 6,
     "executeSpendTime": 2,
     "languages": ["Rust", "C"],
+    "commits": "1",
 
     "submitAt": "2022-06-24 12:14:00",
     "updateAt": "2022-06-24 14:05:00"
@@ -27,6 +28,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 6,
+    "commits": "1",
     "executeSpendTime": 5,
     "languages": ["Rust", "C++"],
 
@@ -44,6 +46,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 9,
+    "commits": "2",
     "executeSpendTime": 3,
     "languages": ["Rust", "Go"],
 
@@ -61,6 +64,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 10,
+    "commits": "2",
     "executeSpendTime": 2,
     "languages": ["Rust"],
 
@@ -78,6 +82,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 5,
+    "commits": "4",
     "executeSpendTime": 9,
     "languages": ["Rust"],
 
@@ -95,6 +100,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 10,
+    "commits": 1,
     "executeSpendTime": 2,
     "languages": ["Rust"],
 
@@ -112,6 +118,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 3,
+    "commits": 2,
     "executeSpendTime": 2,
     "languages": ["Rust"],
 
@@ -129,6 +136,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 10,
+    "commits": 3,
     "executeSpendTime": 1,
     "languages": ["Rust"],
 
@@ -146,6 +154,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 10,
+    "commits": "2",
     "executeSpendTime": 2,
     "languages": ["Rust"],
 
@@ -163,6 +172,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 5,
+    "commits": 2,
     "executeSpendTime": 2,
     "languages": ["Rust"],
 
@@ -180,6 +190,7 @@
     "assignmentTitle": "Lession 1",
 
     "passCase": 10,
+    "commits": 4,
     "executeSpendTime": 12,
     "languages": ["Rust"],
 
@@ -198,6 +209,7 @@
     "assignmentTitle": "Lession 2",
 
     "passCase": 6,
+    "commits": 7,
     "executeSpendTime": 2,
     "languages": ["C"],
 
@@ -215,6 +227,7 @@
     "assignmentTitle": "Lession 2",
 
     "passCase": 3,
+    "commits": 2,
     "executeSpendTime": 7,
     "languages": ["C"],
 
