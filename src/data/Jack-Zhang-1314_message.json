@@ -1,11 +1,13 @@
 {
-  "id": "6baa6a00-fd89-11ec-bc3e-cd5a4cc4b706",
+  "id": "630e79d0",
   "repoOwner": "Jack-Zhang-1314",
   "repoURL": "git://github.com/os2edu/test-Jack-Zhang-1314.git",
   "repoName": "os2edu/test-Jack-Zhang-1314",
-  "submitAt": "2022-07-07 00:11:40",
-  "updateAt": "2022-07-07 00:11:55",
+  "submitAt": "2022-07-07 00:18:33",
+  "updateAt": "2022-07-07 00:18:46",
+  "passed": "failure",
   "assignment": {
+    "id": "630f6430",
     "title": "test",
     "description": "test"
   }
