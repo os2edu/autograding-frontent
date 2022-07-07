@@ -8,6 +8,7 @@ import Search, { ISearchProps } from './search'
 import AssignmentBar from './assignmentBar'
 
 import exerciseData from '../../data/exercise.json'
+import { render } from '@testing-library/react'
 
 interface IProps {
   classroom?: IClassroom
@@ -18,6 +19,7 @@ interface IDatasourceAssignment extends IAssignment {
 }
 interface IDatasource {
   repoOwner: string
+  repoURL: string
   assigments: IDatasourceAssignment[]
   assigmentsMap: Record<string, IDatasourceAssignment>
   totalScore: number
@@ -59,7 +61,10 @@ const ClassRoomRank = (props: IProps) => {
         align: 'center',
         dataIndex: 'repoOwner',
         className: 'top-three',
-        key: 'repoOwner'
+        key: 'repoOwner',
+        render(text: string, record: IDatasource) {
+          return <span className="link" onClick={() => window.location.assign(record.repoURL)}>{text}</span>
+        }
       },
       {
         title: 'Score',
@@ -144,6 +149,7 @@ const ClassRoomRank = (props: IProps) => {
 
       return {
         repoOwner,
+        repoURL: 'xx',
         assigments,
         assigmentsMap,
         totalScore,
@@ -154,7 +160,14 @@ const ClassRoomRank = (props: IProps) => {
     return orderBy(rankList, ['averageScore'], ['desc'])
   }, [classroomId])
 
-  console.log(dataSource)
+
+  dataSource = dataSource.filter((item: IDatasource) => {
+    let searchName = true
+    if (query.name) {
+      searchName = item.repoOwner.toLowerCase().includes(query.name.toLowerCase())
+    }
+    return searchName
+  })
 
   return (
     <div className="rank-list">
