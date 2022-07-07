@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react'
 import { Table, Button } from 'antd'
-import { orderBy, isEmpty, map } from 'lodash'
+import { orderBy, isEmpty, map, groupBy, keys, reduce } from 'lodash'
 import Icon from '../../components/Icon'
 import type { ColumnsType } from 'antd/lib/table'
-import type { IClassroom, IExercise } from './types'
+import type { IClassroom, IAssignment, IExercise } from './types'
 import Search, { ISearchProps } from './search'
+import AssignmentBar from './assignmentBar'
 
 import exerciseData from '../../data/exercise.json'
 
@@ -12,19 +13,30 @@ interface IProps {
   classroom?: IClassroom
 }
 
+interface IDatasourceAssignment extends IAssignment {
+  score: number
+}
+interface IDatasource {
+  repoOwner: string
+  assigments: IDatasourceAssignment[]
+  assigmentsMap: Record<string, IDatasourceAssignment>
+  totalScore: number
+  averageScore: number
+}
+
 const ClassRoomRank = (props: IProps) => {
   const [query, setQuery] = useState<Partial<ISearchProps>>({})
 
   const classroomId = props.classroom?.id
   const assimentsIds = map(props.classroom?.assignments, 'id')
-  const columns: ColumnsType<IExercise> = useMemo(
+  const columns: ColumnsType<IDatasource> = useMemo(
     () => [
       {
         title: 'Rank',
         dataIndex: 'rank',
         align: 'center',
         key: 'rank',
-        render(_text: any, _record: IExercise, index: number) {
+        render(_text: any, _record: IDatasource, index: number) {
           let content: any = index
           switch (index) {
             case 0:
@@ -52,31 +64,35 @@ const ClassRoomRank = (props: IProps) => {
       {
         title: 'Score',
         align: 'center',
-        dataIndex: 'score',
+        dataIndex: 'averageScore',
         className: 'top-three',
-        key: 'score',
-        render() {
-          //   let score = record.passCase / props.assignment!.useCases
-          //   return <span> {Number(score.toFixed(2)) * 100}</span>
-          return 10
-        }
+        key: 'averageScore'
       },
-      ...map(props.classroom?.assignments, (item) => {
+      ...(map(props.classroom?.assignments, (item) => {
         return {
           title: item.title,
           dataIndex: `assignments-${item.id}`,
+          align: 'center',
           key: item.id,
-          render() {
-            return <span>123</span>
+          render(_text: string, record: IDatasource) {
+            if (record.assigmentsMap[item.id]) {
+              const currentAssigment = record.assigmentsMap[item.id]
+              return <AssignmentBar score={currentAssigment.score * 100} />
+            }
+            return <span>-</span>
           }
         }
-      }),
+      }) as ColumnsType<IDatasource>),
       {
         title: 'like',
         dataIndex: 'like',
         key: 'like',
         render() {
-          return <span>like</span>
+          return (
+            <span style={{ fontSize: 18 }}>
+              <Icon symbol="icon-autolike" />
+            </span>
+          )
         }
       },
       {
@@ -95,15 +111,48 @@ const ClassRoomRank = (props: IProps) => {
     [classroomId]
   )
 
-  let dataSource: IExercise[] = useMemo(
-    () => exerciseData.filter((item) => assimentsIds.includes(item.assignmentId)),
-    //   orderBy(
-    //     exerciseData.filter((item) => assimentsIds.includes(item.assignmentId)),
-    //     ['passCase', 'submitAt'],
-    //     ['desc', 'asc']
-    //   ),
-    [classroomId]
-  )
+  let dataSource: IDatasource[] = useMemo(() => {
+    exerciseData.filter((item) => assimentsIds.includes(item.assignmentId))
+    const groupData = groupBy(exerciseData, 'repoOwner')
+    const repoOwners = keys(groupData)
+    let rankList: IDatasource[] = map(repoOwners, (repoOwner) => {
+      const exercises = groupData[repoOwner]
+      const assigmentsMap: Record<string, IDatasourceAssignment> = {}
+      let assigments: IDatasourceAssignment[] =
+        props.classroom?.assignments.map((assignment) => {
+          const exercise = exercises.find(({ assignmentId }) => assignment.id === assignmentId)
+          let score = -100
+          let result = {
+            ...assignment,
+            score
+          }
+          if (exercise) {
+            score = exercise.passCase / assignment.useCases
+            result.score = score
+            assigmentsMap[assignment.id] = result
+          }
+          return result
+        }) || []
+      assigments = assigments.filter(({ score }) => score !== -100)
+      const totalScore = reduce(
+        assigments,
+        (total, item) => {
+          return total + item.score
+        },
+        0
+      )
+
+      return {
+        repoOwner,
+        assigments,
+        assigmentsMap,
+        totalScore,
+        averageScore: totalScore > 0 ? Number((totalScore / props.classroom!.assignments.length).toFixed(2)) * 100 : -100
+      }
+    })
+
+    return orderBy(rankList, ['averageScore'], ['desc'])
+  }, [classroomId])
 
   console.log(dataSource)
 
@@ -112,7 +161,7 @@ const ClassRoomRank = (props: IProps) => {
       <Search defaultQuery={query} onChange={(query) => setQuery(query)} />
       <Table
         className="rank-table"
-        rowKey={'id'}
+        rowKey={'repoOwner'}
         dataSource={dataSource}
         columns={columns}
         size="middle"
