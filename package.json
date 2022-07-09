@@ -15,6 +15,7 @@
     "antd": "^4.21.4",
     "dayjs": "^1.11.3",
     "lodash": "^4.17.21",
+    "octokit": "^2.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "web-vitals": "^2.1.4"
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@craco/craco": "^6.4.4",
     "craco-antd": "^2.0.0",
+    "csv-parse": "^5.2.2",
     "gh-pages": "^4.0.0",
     "less-loader": "^11.0.0",
     "react-scripts": "5.0.1",
