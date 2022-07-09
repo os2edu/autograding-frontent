@@ -3,7 +3,6 @@ import { Tree } from 'antd'
 import type { DataNode, DirectoryTreeProps } from 'antd/lib/tree'
 import RankList from './rank'
 import ClassRankList from './classRank'
-import Demo from './demo'
 
 import classRoom from '../../data/classAndAssignment.json'
 
@@ -69,7 +68,6 @@ const Rank = () => {
       ) : (
         <RankList assignment={findAssignment(treeNodeId)} />
       )}
-      <Demo />
     </div>
   )
 }
