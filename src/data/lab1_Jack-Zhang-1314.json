@@ -1,0 +1,15 @@
+{
+  "id": "af1bdcd0",
+  "repoOwner": "Jack-Zhang-1314",
+  "repoURL": "git://github.com/LearningOS/lab1-os3-Jack-Zhang-1314.git",
+  "repoName": "LearningOS/lab1-os3-Jack-Zhang-1314",
+  "submitAt": null,
+  "updateAt": "2022-07-09 06:52:22",
+  "passed": "failure",
+  "commitsCount": "10",
+  "assignment": {
+    "id": "af1cc730",
+    "title": "lab1",
+    "description": "lab1"
+  }
+}
