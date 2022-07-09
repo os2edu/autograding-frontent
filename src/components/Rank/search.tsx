@@ -14,6 +14,7 @@ interface IProps {
     defaultQuery: Partial<ISearchProps>;
     onChange: (query: Partial<ISearchProps>) => void;
     noLang?: boolean;
+    langs?: string[]
 }
 
 const SearchList = (props: Partial<IProps>) => {
@@ -48,7 +49,7 @@ const SearchList = (props: Partial<IProps>) => {
           placeholder="Language"
           onChange={(v: string[]) => onChange('language', v)}
         >
-          {['Rust', 'C', 'C++', 'Go'].map((l) => (
+          {props.langs?.map((l) => (
             <Option key={l}>{l}</Option>
           ))}
         </Select>

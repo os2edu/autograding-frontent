@@ -10,6 +10,7 @@ import './index.less'
 
 const { DirectoryTree } = Tree
 
+// @ts-ignore
 const classroomData  = data as TClassroom[]
 
 const findClassroom = (key: string): TClassroom | undefined => {

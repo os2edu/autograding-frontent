@@ -3,19 +3,29 @@ import { Table, Tag, Button } from 'antd'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import type { ColumnsType } from 'antd/lib/table'
-import { orderBy, isEmpty } from 'lodash'
+import { orderBy } from 'lodash'
 import Icon from '../../components/Icon'
-import type { TAssignment, IAssignment, TStudentHomework } from './types'
+import type { TAssignment, TStudentHomework } from './types'
 import Search, { ISearchProps } from './search'
 
-import exerciseData from '../../data/exercise.json'
+const languageColorArra = [
+  'red',
+  'volcano',
+  'orange',
+  'gold',
+  'lime',
+  'green',
+  'cyan',
+  'blue',
+  'geekblue',
+  'purple'
+]
 
 dayjs.extend(relativeTime)
 
 interface IRankListProps {
   assignment?: TAssignment
 }
-
 
 const RankList = (props: IRankListProps) => {
   const [query, setQuery] = useState<Partial<ISearchProps>>({})
@@ -49,15 +59,21 @@ const RankList = (props: IRankListProps) => {
         title: '学生',
         align: 'center',
         dataIndex: 'name',
-        className: "top-three",
-        key: 'name'
+        className: 'top-three',
+        render(text: string) {
+          return (
+            <span className="link" onClick={() => window.open(`https://github.com/${text}`)}>
+              {text}
+            </span>
+          )
+        }
       },
       {
         title: '分数',
         align: 'center',
         dataIndex: 'points_awarded',
-        className: "top-three",
-        key: 'score',
+        className: 'top-three',
+        key: 'score'
       },
       {
         title: '状态',
@@ -65,27 +81,11 @@ const RankList = (props: IRankListProps) => {
         dataIndex: 'points_available',
         key: 'points_available',
         render(_text: string, record: TStudentHomework) {
-          const passed = Number(record.points_awarded) > 0 && record.points_awarded === record.points_available
+          const passed =
+            Number(record.points_awarded) > 0 && record.points_awarded === record.points_available
           return <Tag color={passed ? 'green' : 'red'}>{passed ? '成功' : '失败'}</Tag>
         }
       },
-      // {
-      //   title: 'Use Case',
-      //   align: 'center',
-      //   dataIndex: 'useCase',
-      //   key: 'useCase',
-      //   className: 'use-case',
-      //   render(_text: string, record: TStudentHomework) {
-      //     return (
-      //       <span>
-      //         {record.passCase}/{props.assignment!.useCases}
-      //         <span style={{ marginLeft: 8 }}>
-      //           <Icon symbol="icon-autoround_rank_fill" />
-      //         </span>
-      //       </span>
-      //     )
-      //   }
-      // },
       {
         title: '版本',
         align: 'center',
@@ -93,10 +93,15 @@ const RankList = (props: IRankListProps) => {
         key: 'commits',
         render(_text: any, record: TStudentHomework) {
           return record.commits.length > 0 ? (
-            <Button type="link" onClick={() => window.open(`${record.repoURL}/commits/main`)}>
-              {record.commits.length}
+            <Button
+              type="link"
+              onClick={() => window.open(`${record.repoURL}/commits?author=${record.name}`)}
+            >
+              {record.commits.length} {record.commits.length > 1 ? 'commits' : 'commit'}
             </Button>
-          ) : '-'
+          ) : (
+            '-'
+          )
         }
       },
       {
@@ -104,8 +109,16 @@ const RankList = (props: IRankListProps) => {
         align: 'center',
         dataIndex: 'executeSpendTime',
         key: 'executeSpendTime',
-        render(text: string) {
-          return text ? `${text}s` : '-'
+        render(_text: any, record: TStudentHomework) {
+          const latestRun = record.runs[0]
+          if (latestRun) {
+            const { completed_at, started_at } = latestRun.jobs[0]
+            const executeSecond = Math.floor(
+              dayjs(completed_at).diff(dayjs(started_at), 'second', true)
+            )
+            return `${executeSecond}s`
+          }
+          return '-'
         }
       },
       {
@@ -114,7 +127,11 @@ const RankList = (props: IRankListProps) => {
         dataIndex: 'languages',
         key: 'languages',
         render(text: string[]) {
-          return text?.map((l) => <Tag key={l}>{l}</Tag>)
+          return text?.slice(0, 3).map((l, index) => (
+            <Tag style={{ height: 18, lineHeight: '18px' }} color={languageColorArra[index]} key={l}>
+              {l}
+            </Tag>
+          ))
         }
       },
       {
@@ -126,14 +143,51 @@ const RankList = (props: IRankListProps) => {
           return text ? dayjs(text).fromNow() : '-'
         }
       },
+      // {
+      //   title: '更新时间',
+      //   align: 'center',
+      //   dataIndex: 'update_at',
+      //   key: 'update_at',
+      //   render(_text: never, record: TStudentHomework) {
+      //     const latestRun = record.runs[0]
+      //     if (latestRun && latestRun.run_started_at) {
+      //       return dayjs(latestRun.run_started_at).fromNow()
+      //     }
+      //     return '-'
+      //   }
+      // },
       {
-        title: '作业仓库',
+        title: 'Action',
+        align: 'center',
+        dataIndex: 'actions',
+        key: 'actions',
+        render(_text: never, record: TStudentHomework) {
+          const latestRun = record.runs[0]
+          if (latestRun) {
+            const url = latestRun.jobs[0].html_url
+            return (
+              <Icon
+                style={{ cursor: 'pointer' }}
+                symbol="icon-autorizhi"
+                onClick={() => window.open(url)}
+              />
+            )
+          }
+          return '-'
+        }
+      },
+      {
+        title: '仓库',
         align: 'center',
         dataIndex: 'operate',
         key: 'operate',
         render(_text: any, record: TStudentHomework) {
           return (
-            <Icon style={{ cursor: 'pointer' }} symbol='icon-autorizhi' onClick={() => window.open(record.repoURL)} />
+            <Icon
+              style={{ cursor: 'pointer' }}
+              symbol="icon-autorizhi"
+              onClick={() => window.open(record.repoURL)}
+            />
           )
         }
       }
@@ -173,11 +227,16 @@ const RankList = (props: IRankListProps) => {
 
   return (
     <div className="rank-list">
-      <Search defaultQuery={query} onChange={(query) => setQuery(query)} />
-      <Table className="rank-table" rowKey={'id'} dataSource={dataSource} columns={columns} size="middle" />
+      <Search defaultQuery={query} onChange={(query) => setQuery(query)} langs={dataSource[0]?.languages}/>
+      <Table
+        className="rank-table"
+        rowKey='name'
+        dataSource={dataSource}
+        columns={columns}
+        size="middle"
+      />
     </div>
   )
-
 }
 
-export default RankList;
+export default RankList
