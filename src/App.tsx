@@ -3,8 +3,12 @@ import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import Icon from './components/Icon'
 import Rank from './components/Rank'
+import dayjs from "dayjs"
+import 'dayjs/locale/zh-cn'
 
 import './app.less'
+
+dayjs.locale('zh-cn')
 
 function App() {
   const [activeKey, setActiveKey] = useState('rank')

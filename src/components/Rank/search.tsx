@@ -11,8 +11,9 @@ const { Search } = Input
 const { Option } = Select
 
 interface IProps {
-    defaultQuery: Partial<ISearchProps>
-    onChange: (query: Partial<ISearchProps>) => void
+    defaultQuery: Partial<ISearchProps>;
+    onChange: (query: Partial<ISearchProps>) => void;
+    noLang?: boolean;
 }
 
 const SearchList = (props: Partial<IProps>) => {
@@ -39,6 +40,7 @@ const SearchList = (props: Partial<IProps>) => {
           // onSearch={(v) => onSearch('assignment', v)}
           style={{ width: 200 }}
         /> */}
+        {!props.noLang && 
         <Select
           mode="multiple"
           allowClear
@@ -50,6 +52,7 @@ const SearchList = (props: Partial<IProps>) => {
             <Option key={l}>{l}</Option>
           ))}
         </Select>
+        }
       </Space>
     )
 

@@ -30,3 +30,28 @@ export interface IExercise {
   submitAt: string
   updateAt: string
 }
+
+
+export type TStudentHomework = {
+  name: string;
+  studentInfo: any;
+  repoURL: string;
+  commits: any[];
+  submission_timestamp: string;
+  points_awarded: string,
+  points_available: string
+}
+
+export type TAssignment = {
+  id: string;
+  title: string;
+  url: string;
+  starter_code_url: string;
+  student_repositories: TStudentHomework[]
+}
+
+export type TClassroom = {
+  id: string
+  title: string
+  assignments: TAssignment[]
+}

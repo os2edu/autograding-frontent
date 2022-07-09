@@ -1,30 +1,34 @@
 import React, { useState, useMemo } from 'react'
 import { Table, Tag, Button } from 'antd'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import type { ColumnsType } from 'antd/lib/table'
 import { orderBy, isEmpty } from 'lodash'
 import Icon from '../../components/Icon'
-import type { IAssignment, IExercise } from './types'
+import type { TAssignment, IAssignment, TStudentHomework } from './types'
 import Search, { ISearchProps } from './search'
 
 import exerciseData from '../../data/exercise.json'
 
+dayjs.extend(relativeTime)
+
 interface IRankListProps {
-  assignment?: IAssignment
+  assignment?: TAssignment
 }
 
 
 const RankList = (props: IRankListProps) => {
   const [query, setQuery] = useState<Partial<ISearchProps>>({})
 
-  const columns: ColumnsType<IExercise> = useMemo(
+  const columns: ColumnsType<TStudentHomework> = useMemo(
     () => [
       {
-        title: 'Rank',
+        title: '排名',
         dataIndex: 'rank',
         align: 'center',
         key: 'rank',
-        render(_text: any, _record: IExercise, index: number) {
-          let content: any = index
+        render(_text: any, _record: TStudentHomework, index: number) {
+          let content: any = index + 1
           switch (index) {
             case 0:
               content = <Icon symbol="icon-autojiangbei-" />
@@ -42,67 +46,70 @@ const RankList = (props: IRankListProps) => {
         }
       },
       {
-        title: 'Name',
+        title: '学生',
         align: 'center',
-        dataIndex: 'repoOwner',
+        dataIndex: 'name',
         className: "top-three",
-        key: 'repoOwner'
+        key: 'name'
       },
       {
-        title: 'Score',
+        title: '分数',
         align: 'center',
-        dataIndex: 'score',
+        dataIndex: 'points_awarded',
         className: "top-three",
         key: 'score',
-        render(_text, record) {
-          let score = record.passCase / props.assignment!.useCases
-          return <span> {Number(score.toFixed(2)) * 100}</span>
-        }
       },
       {
-        title: 'Result',
+        title: '状态',
         align: 'center',
-        dataIndex: 'passCase',
-        key: 'passCase',
-        render(_text: string, record: IExercise) {
-          const passed = record.passCase === props.assignment!.useCases
-          return <Tag color={passed ? 'green' : 'red'}>{passed ? 'passed' : 'failed'}</Tag>
+        dataIndex: 'points_available',
+        key: 'points_available',
+        render(_text: string, record: TStudentHomework) {
+          const passed = Number(record.points_awarded) > 0 && record.points_awarded === record.points_available
+          return <Tag color={passed ? 'green' : 'red'}>{passed ? '成功' : '失败'}</Tag>
         }
       },
+      // {
+      //   title: 'Use Case',
+      //   align: 'center',
+      //   dataIndex: 'useCase',
+      //   key: 'useCase',
+      //   className: 'use-case',
+      //   render(_text: string, record: TStudentHomework) {
+      //     return (
+      //       <span>
+      //         {record.passCase}/{props.assignment!.useCases}
+      //         <span style={{ marginLeft: 8 }}>
+      //           <Icon symbol="icon-autoround_rank_fill" />
+      //         </span>
+      //       </span>
+      //     )
+      //   }
+      // },
       {
-        title: 'Use Case',
-        align: 'center',
-        dataIndex: 'useCase',
-        key: 'useCase',
-        className: 'use-case',
-        render(_text: string, record: IExercise) {
-          return (
-            <span>
-              {record.passCase}/{props.assignment!.useCases}
-              <span style={{ marginLeft: 8 }}>
-                <Icon symbol="icon-autoround_rank_fill" />
-              </span>
-            </span>
-          )
-        }
-      },
-      {
-        title: 'Commits',
+        title: '版本',
         align: 'center',
         dataIndex: 'commits',
-        key: 'commits'
+        key: 'commits',
+        render(_text: any, record: TStudentHomework) {
+          return record.commits.length > 0 ? (
+            <Button type="link" onClick={() => window.open(`${record.repoURL}/commits/main`)}>
+              {record.commits.length}
+            </Button>
+          ) : '-'
+        }
       },
       {
-        title: 'times',
+        title: '耗时',
         align: 'center',
         dataIndex: 'executeSpendTime',
         key: 'executeSpendTime',
         render(text: string) {
-          return `${text}s`
+          return text ? `${text}s` : '-'
         }
       },
       {
-        title: 'Language',
+        title: '语言',
         align: 'center',
         dataIndex: 'languages',
         key: 'languages',
@@ -111,21 +118,22 @@ const RankList = (props: IRankListProps) => {
         }
       },
       {
-        title: 'Update',
+        title: '提交时间',
         align: 'center',
-        dataIndex: 'updateAt',
-        key: 'updateAt'
+        dataIndex: 'submission_timestamp',
+        key: 'submission_timestamp',
+        render(text) {
+          return text ? dayjs(text).fromNow() : '-'
+        }
       },
       {
-        title: 'Link To Github',
+        title: '作业仓库',
         align: 'center',
         dataIndex: 'operate',
         key: 'operate',
-        render(_text: any, record: IExercise) {
+        render(_text: any, record: TStudentHomework) {
           return (
-            <Button type="link" onClick={() => window.location.assign(record.repoURL)}>
-              repo
-            </Button>
+            <Icon style={{ cursor: 'pointer' }} symbol='icon-autorizhi' onClick={() => window.open(record.repoURL)} />
           )
         }
       }
@@ -135,30 +143,30 @@ const RankList = (props: IRankListProps) => {
   )
 
   const assignmentId = props.assignment?.id
-  let dataSource: IExercise[] = useMemo(
+  let dataSource: TStudentHomework[] = useMemo(
     () =>
       orderBy(
-        exerciseData.filter((item) => item.assignmentId === assignmentId),
-        ['passCase', 'submitAt'],
+        props.assignment?.student_repositories,
+        ['points_awarded', 'submission_timestamp'],
         ['desc', 'asc']
       ),
     [assignmentId]
   )
-  dataSource = dataSource.filter((item: IExercise) => {
+  dataSource = dataSource.filter((item: TStudentHomework) => {
     let searchName = true
     let searchAssignment = true
     let searchLuanage = true
     if (query.name) {
-      searchName = item.repoOwner.toLowerCase().includes(query.name.toLowerCase())
+      searchName = item.name.toLowerCase().includes(query.name.toLowerCase())
     }
 
-    if (query.assignment) {
-      searchAssignment = item.assignmentTitle.toLowerCase().includes(query.assignment.toLowerCase())
-    }
+    // if (query.assignment) {
+    //   searchAssignment = item.assignmentTitle.toLowerCase().includes(query.assignment.toLowerCase())
+    // }
 
-    if (!isEmpty(query.language)) {
-      searchLuanage = item.languages.some((l) => query.language?.includes(l))
-    }
+    // if (!isEmpty(query.language)) {
+    //   searchLuanage = item.languages.some((l) => query.language?.includes(l))
+    // }
 
     return searchName && searchAssignment && searchLuanage
   })

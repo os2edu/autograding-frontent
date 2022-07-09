@@ -26,7 +26,7 @@ const AssignmentBar = ({ score }: IProps) => {
   return (
     <div className="score-bar">
       <div className="score-percent" style={{ backgroundColor, width: `${score * 0.9}%` }}></div>
-      <div className="score-num">{score}</div>
+      <div className={`score-num ${score === 0 ? 'score-num-zero' : ''}`}>{score}</div>
     </div>
   )
 }
