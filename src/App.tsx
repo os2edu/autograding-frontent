@@ -3,7 +3,7 @@ import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import Icon from './components/Icon'
 import Rank from './components/Rank'
-import dayjs from "dayjs"
+import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 
 import './app.less'
@@ -11,10 +11,10 @@ import './app.less'
 dayjs.locale('zh-cn')
 
 function App() {
-  const [activeKey, setActiveKey] = useState('rank')
+  const [activeKey/*, setActiveKey*/] = useState('rank')
   const items: MenuProps['items'] = [
     {
-      label: 'Rank',
+      label: '排行榜',
       key: 'rank',
       icon: <Icon symbol="icon-autorank1" />
     },
@@ -26,15 +26,17 @@ function App() {
     }
   ]
 
-  const onChange = (key: string) => {
-    console.log(key)
-  }
-
   const onClick = () => {}
 
   return (
     <div className="container">
-      <Icon symbol="icon-autojiangbei" id="logo" />
+      <div id="logo-box">
+        <Icon symbol="icon-autojiangbei" id="logo" />
+        <div className='logo-title'>
+          <span>2022开源操作系统</span>
+          <span>训练营排行榜</span>
+        </div>
+      </div>
       <Menu
         className="main-menu"
         onClick={onClick}

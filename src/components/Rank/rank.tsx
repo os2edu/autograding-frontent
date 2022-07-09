@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Table, Tag, Button } from 'antd'
+import { Table, Tag, Button, Progress } from 'antd'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import type { ColumnsType } from 'antd/lib/table'
@@ -128,7 +128,11 @@ const RankList = (props: IRankListProps) => {
         key: 'languages',
         render(text: string[]) {
           return text?.slice(0, 3).map((l, index) => (
-            <Tag style={{ height: 18, lineHeight: '18px' }} color={languageColorArra[index]} key={l}>
+            <Tag
+              style={{ height: 18, lineHeight: '18px' }}
+              color={languageColorArra[index]}
+              key={l}
+            >
               {l}
             </Tag>
           ))
@@ -168,7 +172,7 @@ const RankList = (props: IRankListProps) => {
             return (
               <Icon
                 style={{ cursor: 'pointer' }}
-                symbol="icon-autorizhi"
+                symbol="icon-autowj-rz"
                 onClick={() => window.open(url)}
               />
             )
@@ -185,7 +189,7 @@ const RankList = (props: IRankListProps) => {
           return (
             <Icon
               style={{ cursor: 'pointer' }}
-              symbol="icon-autorizhi"
+              symbol="icon-autogithub"
               onClick={() => window.open(record.repoURL)}
             />
           )
@@ -225,12 +229,41 @@ const RankList = (props: IRankListProps) => {
     return searchName && searchAssignment && searchLuanage
   })
 
+  const renderComplateStatus = () => {
+    const passRepos = props.assignment?.student_repositories.filter(
+      (item) => item.submission_timestamp && item.points_awarded === '100'
+    )
+
+    const percent = passRepos!.length / props.assignment!.student_repositories.length
+
+    return (
+      <div className="total-passed-info">
+        <div className="passed-count">
+          <span>完成学生</span>
+          <span>
+            {passRepos?.length}/{props.assignment?.student_repositories.length}{' '}
+          </span>
+        </div>
+        <Progress
+          strokeColor={'rgb(82, 196, 26)'}
+          trailColor="#ff4d4f"
+          percent={percent}
+          showInfo={false}
+        />
+      </div>
+    )
+  }
   return (
     <div className="rank-list">
-      <Search defaultQuery={query} onChange={(query) => setQuery(query)} langs={dataSource[0]?.languages}/>
+      <Search
+        defaultQuery={query}
+        onChange={(query) => setQuery(query)}
+        langs={dataSource[0]?.languages}
+      />
+      {renderComplateStatus()}
       <Table
         className="rank-table"
-        rowKey='name'
+        rowKey="name"
         dataSource={dataSource}
         columns={columns}
         size="middle"

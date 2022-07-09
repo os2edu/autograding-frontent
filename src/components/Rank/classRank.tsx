@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react'
-import { Table, Button } from 'antd'
-import { pick, values, orderBy, isEmpty, map, groupBy, keys, reduce, flatMap } from 'lodash'
+import { Table } from 'antd'
+import { orderBy, map, groupBy, keys, flatMap } from 'lodash'
 import Icon from '../../components/Icon'
 import type { ColumnsType } from 'antd/lib/table'
-import type { TClassroom, IAssignment, TAssignment, TStudentHomework } from './types'
+import type { TClassroom, TAssignment, TStudentHomework } from './types'
 import Search, { ISearchProps } from './search'
 import AssignmentBar from './assignmentBar'
 
@@ -11,9 +11,6 @@ interface IProps {
   classroom?: TClassroom
 }
 
-interface IDatasourceAssignment extends IAssignment {
-  score: number
-}
 interface IDatasource {
   name: string;
   homeworks: TStudentHomework[];

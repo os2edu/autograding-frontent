@@ -1,4 +1,4 @@
-@nav-width: 200px;
+@nav-width: 280px;
 
 .container {
   .main-menu {
@@ -6,9 +6,25 @@
   }
 }
 
-#logo {
-  font-size: 2.6em;
+#logo-box {
   position: absolute;
   left: 12px;
-  top: 6px;
+  top: 4px;
+  display: flex;
+  align-items: center;
+  color: rgb(46 40 40 / 85%);
+  font-size: 13px;
+  font-weight: bold;
+
+  .logo-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 4px;
+  }
+  
+}
+
+#logo {
+  font-size: 2.6em;
 }
