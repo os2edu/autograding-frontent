@@ -5,12 +5,12 @@ const _ = require('lodash')
 const { getAuthenticated, getUserInfo, getRepoCommits, getRepoLanguages, getCIInfo, getJobs } = require('./githubAPI')
 
 // 由于有api调用次数限制(5000/小时)，所以需要对数据做缓存操作，避免造成次数浪费
-const user = require('./cache/user.json')
-const language = require('./cache/language.json')
-const workflow = require('./cache/workflow.json')
-const job = require('./cache/job.json')
+const user = require('../cache/user.json')
+const language = require('../cache/language.json')
+const workflow = require('../cache/workflow.json')
+const job = require('../cache/job.json')
 
-const ASSIGNMENT_DIR = './assignments'
+const ASSIGNMENT_DIR = '../assignments'
 const EXTENSION = '.csv'
 
 async function parseAssignment(filename) {
@@ -62,7 +62,7 @@ async function parseAssignment(filename) {
                   const repoName = assignment.student_repository_name
 
                   const studentInfo = user[assignment.github_username] || await getUserInfo(assignment.github_username)
-                  if(studentInfo === 'NotFound') { return null };
+                  if (studentInfo === 'NotFound') { return null };
                   user[assignment.github_username] = studentInfo
 
                   const languages = language[assignmentName] || await getRepoLanguages(repoName, assignmentName)
@@ -135,13 +135,13 @@ async function run() {
       }
     })
     const json = JSON.stringify(classrooms)
-    fs.writeFileSync('data.json', json)
+    fs.writeFileSync('../data.json', json)
 
     // console.log(user, language, workflow, job)
-    fs.writeFileSync('cache/user.json', JSON.stringify(user))
-    fs.writeFileSync('cache/language.json', JSON.stringify(language))
-    fs.writeFileSync('cache/workflow.json', JSON.stringify(workflow))
-    fs.writeFileSync('cache/job.json', JSON.stringify(job))
+    fs.writeFileSync('../cache/user.json', JSON.stringify(user))
+    fs.writeFileSync('../cache/language.json', JSON.stringify(language))
+    fs.writeFileSync('../cache/workflow.json', JSON.stringify(workflow))
+    fs.writeFileSync('../cache/job.json', JSON.stringify(job))
   })
 }
 
