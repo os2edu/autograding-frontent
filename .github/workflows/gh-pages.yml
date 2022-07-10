@@ -25,8 +25,9 @@ jobs:
           yarn install
       # - name: get csv
       #   uses: ./src/scripts/csv
-      # - name: csv to json
-      #   uses: ./src/scripts/parse
+      - name: csv to json
+        uses: ./src/scripts/parse
+        with: ${{secrets.ACTION_ACCESS}}
       # - name: build pages
       #   run: yarn run build
       - name: GitHub Pages

@@ -2,7 +2,12 @@ const fs = require('fs')
 const path = require('path')
 const { parse } = require('csv-parse')
 const _ = require('lodash')
+const { getInput } = require('@actions/core')
 const { getAuthenticated, getUserInfo, getRepoCommits, getRepoLanguages, getCIInfo, getJobs } = require('./githubAPI')
+
+//种下token
+
+process.env["AUTH"] = getInput('token')
 
 // 由于有api调用次数限制(5000/小时)，所以需要对数据做缓存操作，避免造成次数浪费
 const user = require('../cache/user.json')
