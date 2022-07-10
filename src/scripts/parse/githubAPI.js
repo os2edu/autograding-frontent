@@ -3,7 +3,7 @@ const { Octokit } = require('octokit')
 require('dotenv').config()
 
 const { ORG, AUTH } = process.env
-
+console.log(AUTH)
 const octokit = new Octokit({ auth: AUTH })
 
 const userCache = {}
