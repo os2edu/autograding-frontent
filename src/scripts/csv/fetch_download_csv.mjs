@@ -20,7 +20,7 @@ const classrooms = [
   },
   {
     key: '19380377-learning-rust',
-    assigments: [ 
+    assigments: [
       'learn_rust_rustlings'
     ]
   }

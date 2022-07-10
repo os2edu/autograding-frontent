@@ -23,8 +23,8 @@ jobs:
         run: |
           npm install yarn -g
           yarn install
-      - name: get csv
-        uses: ./src/scripts/csv
+      # - name: get csv
+      #   uses: ./src/scripts/csv
       # - name: csv to json
       #   uses: ./src/scripts/parse
       - name: build pages
