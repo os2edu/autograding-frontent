@@ -27,7 +27,8 @@ jobs:
       #   uses: ./src/scripts/csv
       - name: csv to json
         uses: ./src/scripts/parse
-        with: ${{secrets.ACTION_ACCESS}}
+        with:
+          token: ${{secrets.ACTION_ACCESS}}
       # - name: build pages
       #   run: yarn run build
       - name: GitHub Pages
