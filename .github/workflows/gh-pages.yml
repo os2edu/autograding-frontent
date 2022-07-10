@@ -20,7 +20,9 @@ jobs:
         with:
           node-version: '16.x'
       - name: install pkg
-        run: npm install
+        run: |
+          npm install yarn -g
+          yarn install
       - name: get csv to json
         uses: ./
       - name: build pages
