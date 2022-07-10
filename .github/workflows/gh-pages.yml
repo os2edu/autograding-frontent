@@ -21,16 +21,18 @@ jobs:
           node-version: '16.x'
       - name: install pkg
         run: |
-          npm install yarn -g
-          yarn install
+          npm install pnpm -g
+          pnpm i
       # - name: get csv
       #   uses: ./src/scripts/csv
+      - name: create env file
+        run: |
+          touch .env
+          echo AUTH=${{ secrets.ACTION_ACCESS }} >> .env
       - name: csv to json
         uses: ./src/scripts/parse
-        with:
-          token: ${{secrets.ACTION_ACCESS}}
       # - name: build pages
-      #   run: yarn run build
+      #   run: pnpm build
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3.0.0
         with:
