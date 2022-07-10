@@ -3,11 +3,11 @@
 name: GitHub Classroom Workflow
 
 on:
-  push:
-    branches:
-      - gh-pages
+  # push:
+  #   branches:
+  #     - gh-pages
   schedule:
-    - cron: '* */1 * * *'
+    - cron: '*/10 * * * *'
 
 jobs:
   build:
