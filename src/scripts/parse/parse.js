@@ -11,13 +11,14 @@ const workflow = require('../cache/workflow.json')
 const job = require('../cache/job.json')
 
 //TODO: 相对于整个项目的路径
-const ASSIGNMENT_DIR = './src/scripts/assignments'
+const ASSIGNMENT_DIR = '../assignments'
 const EXTENSION = '.csv'
 
 async function parseAssignment(filename) {
   return new Promise((resolve, reject) => {
-    const csvFilePath = path.resolve(__dirname, `${ASSIGNMENT_DIR}/${filename}`)
 
+    const csvFilePath = path.resolve(__dirname, `${ASSIGNMENT_DIR}/${filename}`)
+    console.log("path", csvFilePath)
     const headers = [
       'assignment_name',
       'assignment_url',
