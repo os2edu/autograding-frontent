@@ -2,10 +2,10 @@ const _ = require('lodash')
 const { Octokit } = require('octokit')
 const { getInput } = require('@actions/core')
 
-const token = getInput("token") || process.env['GITHUB_TOKEN']
+// const token = getInput("token") || process.env['GITHUB_TOKEN']
 
-const octokit = new Octokit({ auth: token })
-
+// const octokit = new Octokit({ auth: token })
+const octokit = new Octokit({ auth: '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' })
 const ORG = 'LearningOS'
 
 const userCache = {}
