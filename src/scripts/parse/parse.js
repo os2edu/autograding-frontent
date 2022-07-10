@@ -44,7 +44,7 @@ async function parseAssignment(filename) {
         if (error) {
           reject(error)
         }
-        console.log("result:::"+result)
+        // console.log("result:::"+result)
         const assignments = result.slice(1)
         if (assignments.length) {
           const classroomStr = assignments[0].assignment_url.split('/')[4]
