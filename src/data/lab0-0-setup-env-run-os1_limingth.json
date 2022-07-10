@@ -1,0 +1,15 @@
+{
+  "id": "60588d20",
+  "repoOwner": "limingth",
+  "repoURL": "git://github.com/LearningOS/lab0-0-setup-env-run-os1-limingth.git",
+  "repoName": "LearningOS/lab0-0-setup-env-run-os1-limingth",
+  "submitAt": null,
+  "updateAt": "2022-07-10 01:41:11",
+  "passed": "failure",
+  "commitsCount": "7",
+  "assignment": {
+    "id": "60599e90",
+    "title": "lab0-0-setup-env-run-os1",
+    "description": "lab0-0-setup-env-run-os1"
+  }
+}
