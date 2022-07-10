@@ -142,13 +142,20 @@ async function run() {
       }
     })
     const json = JSON.stringify(classrooms)
-    fs.writeFileSync('../data.json', json)
+
+    const dataPathJson = path.resolve(__dirname, '../data.json')
+    fs.writeFileSync(dataPathJson, json)
 
     // console.log(user, language, workflow, job)
-    fs.writeFileSync('../cache/user.json', JSON.stringify(user))
-    fs.writeFileSync('../cache/language.json', JSON.stringify(language))
-    fs.writeFileSync('../cache/workflow.json', JSON.stringify(workflow))
-    fs.writeFileSync('../cache/job.json', JSON.stringify(job))
+    const userPathJson = path.resolve(__dirname, '../cache/user.json')
+    const languagePathJson = path.resolve(__dirname, '../cache/language.json')
+    const workflowPathJson = path.resolve(__dirname, '../cache/workflow.json')
+    const jobPathJson = path.resolve(__dirname, '../cache/job.json')
+
+    fs.writeFileSync(userPathJson, JSON.stringify(user))
+    fs.writeFileSync(languagePathJson, JSON.stringify(language))
+    fs.writeFileSync(workflowPathJson, JSON.stringify(workflow))
+    fs.writeFileSync(jobPathJson, JSON.stringify(job))
   })
 }
 
