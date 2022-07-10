@@ -60,9 +60,15 @@ const RankList = (props: IRankListProps) => {
         align: 'center',
         dataIndex: 'name',
         className: 'top-three',
-        render(text: string) {
+        render(text: string, record: TStudentHomework) {
           return (
-            <span className="link" onClick={() => window.open(`https://github.com/${text}`)}>
+            <span
+              className="link student-info"
+              onClick={() => window.open(`https://github.com/${text}`)}
+            >
+              {record.studentInfo.avatar_url && (
+                <img src={record.studentInfo.avatar_url} alt="avatar" />
+              )}
               {text}
             </span>
           )
@@ -234,14 +240,14 @@ const RankList = (props: IRankListProps) => {
       (item) => item.submission_timestamp && item.points_awarded === '100'
     )
 
-    const percent = passRepos!.length / props.assignment!.student_repositories.length
+    const percent = (passRepos!.length / props.assignment!.student_repositories.length) * 100
 
     return (
       <div className="total-passed-info">
         <div className="passed-count">
-          <span>完成学生</span>
+          <span>完成作业</span>
           <span>
-            {passRepos?.length}/{props.assignment?.student_repositories.length}{' '}
+            {passRepos?.length}/{props.assignment?.student_repositories.length}
           </span>
         </div>
         <Progress
