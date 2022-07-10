@@ -1,12 +1,10 @@
 const _ = require('lodash')
 const { Octokit } = require('octokit')
-const { getInput } = require('@actions/core')
+require('dotenv').config()
 
-// const token = getInput("token") || process.env['GITHUB_TOKEN']
+const { ORG, AUTH } = process.env
 
-// const octokit = new Octokit({ auth: token })
-const octokit = new Octokit({ auth: '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' })
-const ORG = 'LearningOS'
+const octokit = new Octokit({ auth: AUTH })
 
 const userCache = {}
 const languagesCache = {}

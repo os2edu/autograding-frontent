@@ -52,6 +52,7 @@
     "craco-antd": "^2.0.0",
     "csv-parse": "^5.2.2",
     "curl": "^0.1.4",
+    "dotenv": "^16.0.1",
     "gh-pages": "^4.0.0",
     "less-loader": "^11.0.0",
     "node-fetch": "^3.2.6",

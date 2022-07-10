@@ -83,7 +83,7 @@ async function parseAssignment(filename) {
                     name: assignment.github_username,
                     studentInfo: studentInfo,
                     repoURL: assignment.student_repository_url,
-                    commits: [], //await getRepoCommits(assignment),
+                    commits: await getRepoCommits(assignment),
                     languages: languages,
                     runs: withJobsRuns,
                     submission_timestamp: assignment.submission_timestamp,
