@@ -10,7 +10,8 @@ const language = require('../cache/language.json')
 const workflow = require('../cache/workflow.json')
 const job = require('../cache/job.json')
 
-const ASSIGNMENT_DIR = '../assignments'
+//TODO: 相对于整个项目的路径
+const ASSIGNMENT_DIR = './src/scripts/assignments'
 const EXTENSION = '.csv'
 
 async function parseAssignment(filename) {
@@ -46,7 +47,8 @@ async function parseAssignment(filename) {
         const assignments = result.slice(1)
         if (assignments.length) {
           const classroomStr = assignments[0].assignment_url.split('/')[4]
-          classroomIdLen = 8
+          //TODO: 命名变量
+          const classroomIdLen = 8
           const classroomTitle = classroomStr.slice(classroomIdLen + 1)
           const assignmentName = assignments[0].assignment_name
           const classroom = {
