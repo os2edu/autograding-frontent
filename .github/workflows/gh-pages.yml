@@ -25,6 +25,7 @@ jobs:
           yarn install
       - name: get csv to json
         uses: ./
+        with: ${{secrets.GITHUB_TOKEN}}
       - name: build pages
         run: npm build
       - name: commit
