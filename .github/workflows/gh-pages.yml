@@ -27,7 +27,6 @@ jobs:
         uses: ./src/scripts/csv
       - name: csv to json
         uses: ./src/scripts/parse
-        with: ${{secrets.GITHUB_TOKEN}}
       - name: build pages
         run: npm build
       - name: commit
