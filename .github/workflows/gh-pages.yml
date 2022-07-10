@@ -28,9 +28,11 @@ jobs:
       # - name: csv to json
       #   uses: ./src/scripts/parse
       # - name: build pages
-      #   run: npm run build
+      #   run: yarn run build
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3.0.0
         with:
           target_branch: gh-pages-action
           build_dir: docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
