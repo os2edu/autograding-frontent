@@ -31,8 +31,8 @@ jobs:
           echo AUTH=${{ secrets.ACTION_ACCESS }} >> .env
       # - name: csv to json
       #   uses: ./src/scripts/parse
-      # - name: build pages
-      #   run: yarn build
+      - name: build pages
+        run: yarn build
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3.0.0
         with:

@@ -81,28 +81,32 @@ const ClassRoomRank = (props: IProps) => {
         }
       }) as ColumnsType<IDatasource>),
     ],
+    // eslint-disable-next-line
     [classroomId]
   )
 
   let dataSource: IDatasource[] = useMemo(() => {
-    const studentHomeworkds = flatMap(map(props.classroom?.assignments, 'student_repositories'))
+    const studentHomeworkds = flatMap(
+      map(props.classroom?.assignments, 'student_repositories')
+    )
     const studentGroups = groupBy(studentHomeworkds, 'name')
-    const studentAchievement = map(keys(studentGroups), studentName => {
+    const studentAchievement = map(keys(studentGroups), (studentName) => {
       const homeworks = studentGroups[studentName]
       const totalScore = homeworks.reduce((total, homework) => {
-        if(homework.submission_timestamp) {
+        if (homework.submission_timestamp) {
           return total + Number(homework.points_awarded || 0)
         }
         return total
-      }, 0);
+      }, 0)
       return {
         name: studentName,
         homeworks,
         totalScore,
-        averageScore: totalScore / props.classroom!.assignments.length
+        averageScore: totalScore / props.classroom!.assignments.length,
       }
-    }) 
+    })
     return orderBy(studentAchievement, ['averageScore'], ['desc'])
+    //eslint-disable-next-line
   }, [classroomId])
 
 

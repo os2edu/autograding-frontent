@@ -214,6 +214,7 @@ const RankList = (props: IRankListProps) => {
         ['points_awarded', 'submission_timestamp'],
         ['desc', 'asc']
       ),
+    // eslint-disable-next-line
     [assignmentId]
   )
   dataSource = dataSource.filter((item: TStudentHomework) => {
