@@ -115,7 +115,11 @@ async function run() {
     return new Error('unauthoried')
   }
 
-  fs.readdir(ASSIGNMENT_DIR, async (err, files) => {
+  //TODO: PATH相对于项目的路径
+  const filePath = path.resolve(__dirname, ASSIGNMENT_DIR)
+  console.log("filePath", filePath)
+
+  fs.readdir(filePath, async (err, files) => {
     if (err) {
       throw new Error(err)
     }
