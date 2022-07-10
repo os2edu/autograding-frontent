@@ -44,7 +44,7 @@ async function parseAssignment(filename) {
         if (error) {
           reject(error)
         }
-
+        console.log("result:::"+result)
         const assignments = result.slice(1)
         if (assignments.length) {
           const classroomStr = assignments[0].assignment_url.split('/')[4]
@@ -117,7 +117,7 @@ async function run() {
 
   //TODO: PATH相对于项目的路径
   const filePath = path.resolve(__dirname, ASSIGNMENT_DIR)
-  console.log("filePath", filePath)
+  // console.log("filePath", filePath)
 
   fs.readdir(filePath, async (err, files) => {
     if (err) {
