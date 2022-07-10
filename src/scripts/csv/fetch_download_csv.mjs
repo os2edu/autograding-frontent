@@ -57,7 +57,7 @@ async function download(classroom, assigment) {
     "method": "GET"
   })
 
-  await streamPipeline(response.body, createWriteStream(`../assignments/${assigment}.csv`));
+  await streamPipeline(response.body, createWriteStream(`./src/scripts/assignments/${assigment}.csv`));
 
 }
 
