@@ -1,7 +1,10 @@
 const _ = require('lodash')
 const { Octokit } = require('octokit')
+const { getInput } = require('@actions/core')
 
-const octokit = new Octokit({ auth: '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' })
+const token = getInput("token") || process.env['GITHUB_TOKEN']
+
+const octokit = new Octokit({ auth: token })
 
 const ORG = 'LearningOS'
 
@@ -15,15 +18,15 @@ const getAuthenticated = async () => {
 }
 
 const getUserInfo = async (student_name) => {
-  if(userCache[student_name]) { return userCache[student_name] }
+  if (userCache[student_name]) { return userCache[student_name] }
   try {
     const res = await octokit.request('GET /users/{username}', {
-        username: student_name
+      username: student_name
     })
     const result = _.pick(res.data, 'avatar_url')
     userCache[student_name] = result
     return result
-  } catch(err) {
+  } catch (err) {
     console.log(`NotFound Account: ${student_name}`)
     userCache[student_name] = 'NotFound'
     return 'NotFound'
@@ -31,33 +34,33 @@ const getUserInfo = async (student_name) => {
 }
 
 const getRepoCommits = async (assignment) => {
-    try {
-        const res = await octokit.request('GET /repos/{owner}/{repo}/commits', {
-            owner: ORG,
-            repo: assignment.student_repository_name,
-            author: assignment.github_username
-        })
-        return _.map(res.data, (item) => _.pick(item, 'html_url'))
-    } catch(err) {
-        console.log(`getRepoCommits: ${err}  in ${assignment.student_repository_name}`)
-        return []
-    }
+  try {
+    const res = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+      owner: ORG,
+      repo: assignment.student_repository_name,
+      author: assignment.github_username
+    })
+    return _.map(res.data, (item) => _.pick(item, 'html_url'))
+  } catch (err) {
+    console.log(`getRepoCommits: ${err}  in ${assignment.student_repository_name}`)
+    return []
+  }
 }
 
 const getRepoLanguages = async (repoName, assignmentName) => {
-    try {
-        if(languagesCache[assignmentName]) { return languagesCache[assignmentName]}
-        const res = await octokit.request('GET /repos/{owner}/{repo}/languages', {
-            owner: ORG,
-            repo: repoName
-        })
-        const languages = _.keys(res.data)
-        languagesCache[assignmentName] = languages
-        return languages
-    } catch(err) {
-        console.log(`getRepoLanguages: ${err} in ${repoName}`)
-        return []
-    }
+  try {
+    if (languagesCache[assignmentName]) { return languagesCache[assignmentName] }
+    const res = await octokit.request('GET /repos/{owner}/{repo}/languages', {
+      owner: ORG,
+      repo: repoName
+    })
+    const languages = _.keys(res.data)
+    languagesCache[assignmentName] = languages
+    return languages
+  } catch (err) {
+    console.log(`getRepoLanguages: ${err} in ${repoName}`)
+    return []
+  }
 }
 
 const get_workflow_runs = async (repoName, workflowId) => {
@@ -73,9 +76,9 @@ const get_workflow_runs = async (repoName, workflowId) => {
     )
     // 最多取3条runs
     return res.data.workflow_runs
-  } catch(err) {
-      console.log(`get_workflow_runs: ${err} in ${repoName}`)
-      return []
+  } catch (err) {
+    console.log(`get_workflow_runs: ${err} in ${repoName}`)
+    return []
   }
 }
 const getJobs = async (repoName, runId) => {
@@ -88,7 +91,7 @@ const getJobs = async (repoName, runId) => {
     return res.data.jobs.map((item) =>
       _.pick(item, ['id', 'name', 'html_url', 'conclusion', 'status', 'completed_at', 'started_at'])
     )
-  } catch(err) {
+  } catch (err) {
     console.log(`getJobs: ${err} in ${repoName}`)
     return []
   }
@@ -105,7 +108,7 @@ async function getClassroomWorkflowId(repoName) {
         workflow.name.includes('GitHub Classroom Workflow') || workflow.path.includes('classroom.yml')
     )
     return (classroomWorkflow || {}).id
-  } catch(err) {
+  } catch (err) {
     console.log(`getClassroomWorkflowId: ${err} in ${repoName}`)
     return undefined
   }
@@ -116,33 +119,33 @@ const getCIInfo = async (repoName, workflow_id) => {
     if (classroomWorkflowId) {
       const resRuns = await get_workflow_runs(repoName, classroomWorkflowId)
       const runs = await Promise.all(resRuns.map(async (item) => (
-              _.pick(item, [
-              'id',
-              'name',
-              'conclusion',
-              'status',
-              'check_suite_id',
-              'head_branch',
-              'html_url',
-              'run_started_at',
-              'update_at'
-              ])
-          ))
+        _.pick(item, [
+          'id',
+          'name',
+          'conclusion',
+          'status',
+          'check_suite_id',
+          'head_branch',
+          'html_url',
+          'run_started_at',
+          'update_at'
+        ])
+      ))
       )
       return [classroomWorkflowId, runs]
     }
     return []
-  } catch(err) {
+  } catch (err) {
     console.log(`getCIInfo ${err} in ${repoName}`)
     return []
   }
 }
 
 module.exports = {
-    getAuthenticated,
-    getUserInfo,
-    getRepoCommits,
-    getRepoLanguages,
-    getCIInfo,
-    getJobs
+  getAuthenticated,
+  getUserInfo,
+  getRepoCommits,
+  getRepoLanguages,
+  getCIInfo,
+  getJobs
 }

@@ -1,0 +1,12 @@
+# @format
+
+name: 'csv to json'
+description: 'Transform data'
+input:
+  token:
+    description: 'gethub token'
+    default: ${{github.token}}
+runs:
+  using: 'node16'
+  pre: './src/scripts/fetch_download_csv.js'
+  main: './src/scripts/parse.js'
