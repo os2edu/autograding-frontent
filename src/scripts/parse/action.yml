@@ -2,11 +2,10 @@
 
 name: 'csv to json'
 description: 'Transform data'
-# inputs:
-#   token:
-#     description: 'GITHUB TOKEN'
-#     default: ${{github.token}}
-#     required: false
+inputs:
+  token:
+    description: 'GITHUB TOKEN'
+    required: true
 runs:
   using: 'node16'
   main: './parse.js'

@@ -25,14 +25,12 @@ jobs:
           yarn install
       - name: get csv
         uses: ./src/scripts/csv
-      - name: csv to json
-        uses: ./src/scripts/parse
+      # - name: csv to json
+      #   uses: ./src/scripts/parse
       - name: build pages
-        run: npm build
-      - name: commit
-        run: |
-          git config user.name Jack-Zhang-1314
-          git config user.email zyj17715640603@gmail.com
-          git add .
-          git commit -m "generated"
-          git push origin gh-pages
+        run: yarn build
+      - name: GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v3.0.0
+        with:
+          target_branch: gh-pages-action
+          build_dir: docs
