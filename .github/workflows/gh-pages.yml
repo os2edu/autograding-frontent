@@ -29,7 +29,7 @@ jobs:
         run: |
           touch .env
           echo AUTH=${{ secrets.ACTION_ACCESS }} >> .env
-          echo AUTH=${{ secrets.ORG }} >> .env
+          echo ORG=${{ secrets.ORG }} >> .env
       - name: csv to json
         uses: ./src/scripts/parse
       - name: build pages
