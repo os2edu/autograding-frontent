@@ -20,7 +20,6 @@ interface IProps {
 const SearchList = (props: Partial<IProps>) => {
   const [query, setQuery] = useState<Partial<ISearchProps>>(props.defaultQuery || {})
     const onChange = (key: keyof ISearchProps, v: string | string[]) => {
-        console.log(key, v)
       const newQuery = { ...query, [key]: v }
       setQuery(newQuery)
       props.onChange?.(newQuery)
