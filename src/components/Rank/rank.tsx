@@ -8,18 +8,18 @@ import Icon from '../../components/Icon'
 import type { TAssignment, TStudentHomework } from './types'
 import Search, { ISearchProps } from './search'
 
-const languageColorArra = [
-  'red',
-  'volcano',
-  'orange',
-  'gold',
-  'lime',
-  'green',
-  'cyan',
-  'blue',
-  'geekblue',
-  'purple'
-]
+// const languageColorArra = [
+//   'red',
+//   'volcano',
+//   'orange',
+//   'gold',
+//   'lime',
+//   'green',
+//   'cyan',
+//   'blue',
+//   'geekblue',
+//   'purple'
+// ]
 
 dayjs.extend(relativeTime)
 
