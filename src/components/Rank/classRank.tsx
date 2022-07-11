@@ -102,7 +102,7 @@ const ClassRoomRank = (props: IProps) => {
         name: studentName,
         homeworks,
         totalScore,
-        averageScore: totalScore / props.classroom!.assignments.length,
+        averageScore: Math.floor(totalScore / props.classroom!.assignments.length),
       }
     })
     return orderBy(studentAchievement, ['averageScore'], ['desc'])
