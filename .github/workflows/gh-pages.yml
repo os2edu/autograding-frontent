@@ -28,7 +28,7 @@ jobs:
       - name: create env file
         run: |
           echo AUTH=${{ secrets.ACTION_ACCESS }} >> .env
-          echo ORG=${{ secrets.ORG }} >> .env
+          echo ORG=LearningOS >> .env
       - name: csv to json
         uses: ./src/scripts/parse
       - name: build pages
