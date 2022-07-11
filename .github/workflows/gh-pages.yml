@@ -27,9 +27,8 @@ jobs:
         uses: ./src/scripts/csv
       - name: create env file
         run: |
-          touch .env
-          echo AUTH=${{ secrets.ACTION_ACCESS }} >> .env
-          echo ORG=${{ secrets.ORG }} >> .env
+          echo AUTH=${{ secrets.ACTION_ACCESS }} >> ./src/scripts/parse/.env
+          echo ORG=${{ secrets.ORG }} >> ./src/scripts/parse/.env
       - name: csv to json
         uses: ./src/scripts/parse
       - name: build pages
