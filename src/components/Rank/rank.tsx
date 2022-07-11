@@ -35,6 +35,8 @@ const RankList = (props: IRankListProps) => {
       {
         title: '排名',
         dataIndex: 'rank',
+        fixed: true,
+        width: 100,
         align: 'center',
         key: 'rank',
         render(_text: any, _record: TStudentHomework, index: number) {
@@ -58,6 +60,8 @@ const RankList = (props: IRankListProps) => {
       {
         title: '学生',
         align: 'center',
+        fixed: true,
+        width: 150,
         dataIndex: 'name',
         className: 'top-three',
         render(text: string, record: TStudentHomework) {
@@ -77,6 +81,7 @@ const RankList = (props: IRankListProps) => {
       {
         title: '分数',
         align: 'center',
+        width: 100,
         dataIndex: 'points_awarded',
         className: 'top-three',
         key: 'score'
@@ -95,6 +100,7 @@ const RankList = (props: IRankListProps) => {
       {
         title: '版本',
         align: 'center',
+        width: 100,
         dataIndex: 'commits',
         key: 'commits',
         render(_text: any, record: TStudentHomework) {
@@ -113,6 +119,7 @@ const RankList = (props: IRankListProps) => {
       {
         title: '耗时',
         align: 'center',
+        width: 100,
         dataIndex: 'executeSpendTime',
         key: 'executeSpendTime',
         render(_text: any, record: TStudentHomework) {
@@ -138,7 +145,7 @@ const RankList = (props: IRankListProps) => {
               style={{ height: 18, lineHeight: '18px' }}
               color={languageColorArra[0]}
             >
-              Rust
+              {_text?.[0]}
             </Tag>
           )
           // return text?.slice(0, 3).map((l, index) => (
@@ -155,6 +162,7 @@ const RankList = (props: IRankListProps) => {
       {
         title: '提交时间',
         align: 'center',
+        width: 150,
         dataIndex: 'submission_timestamp',
         key: 'submission_timestamp',
         render(text) {
@@ -178,6 +186,7 @@ const RankList = (props: IRankListProps) => {
         title: 'Action',
         align: 'center',
         dataIndex: 'actions',
+        width: 100,
         key: 'actions',
         render(_text: never, record: TStudentHomework) {
           const latestRun = record.runs[0]
@@ -197,6 +206,7 @@ const RankList = (props: IRankListProps) => {
       {
         title: '仓库',
         align: 'center',
+        width: 100,
         dataIndex: 'operate',
         key: 'operate',
         render(_text: any, record: TStudentHomework) {
@@ -278,6 +288,7 @@ const RankList = (props: IRankListProps) => {
       {renderComplateStatus()}
       <Table
         className="rank-table"
+        scroll={{ x: 1000 }}
         rowKey="name"
         dataSource={dataSource}
         columns={columns}

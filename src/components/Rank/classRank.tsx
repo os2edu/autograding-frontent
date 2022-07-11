@@ -13,6 +13,7 @@ interface IProps {
 
 interface IDatasource {
   name: string;
+  avatar?: string;
   homeworks: TStudentHomework[];
   totalScore: number;
   averageScore: number;
@@ -28,6 +29,8 @@ const ClassRoomRank = (props: IProps) => {
         title: '排名',
         dataIndex: 'rank',
         align: 'center',
+        fixed: true,
+        width: 100,
         key: 'rank',
         render(_text: any, _record: IDatasource, index: number) {
           let content: any = index + 1
@@ -51,15 +54,26 @@ const ClassRoomRank = (props: IProps) => {
         title: '学生',
         align: 'center',
         dataIndex: 'name',
+        fixed: true,
         className: 'top-three',
+        width: 150,
         key: 'repoOwner',
-        render(text: string) {
-          return <span className="link" onClick={() => window.open(`https://github.com/${text}`)}>{text}</span>
+        render(text: string, record: IDatasource) {
+            return <span
+              className="link student-info"
+              onClick={() => window.open(`https://github.com/${text}`)}
+            >
+              {record.avatar && (
+                <img src={record.avatar} alt="avatar" />
+              )}
+              {text}
+            </span>
         }
       },
       {
         title: '平均分',
         align: 'center',
+        width: 100,
         dataIndex: 'averageScore',
         className: 'top-three',
         key: 'averageScore'
@@ -68,7 +82,7 @@ const ClassRoomRank = (props: IProps) => {
         return {
           title: item.title,
           dataIndex: `assignments-${item.id}`,
-          width: 220,
+          width: 200,
           align: 'center',
           key: item.id,
           render(_text: string, record: IDatasource) {
@@ -100,6 +114,7 @@ const ClassRoomRank = (props: IProps) => {
       }, 0)
       return {
         name: studentName,
+        avatar: homeworks[0]?.studentInfo.avatar_url,
         homeworks,
         totalScore,
         averageScore: Math.floor(totalScore / props.classroom!.assignments.length),
@@ -123,6 +138,7 @@ const ClassRoomRank = (props: IProps) => {
       <Search defaultQuery={query} onChange={(query) => setQuery(query)} noLang />
       <Table
         className="rank-table"
+        scroll={{ x: 1000 }}
         rowKey={'name'}
         dataSource={dataSource}
         columns={columns}
