@@ -61,7 +61,7 @@ const RankList = (props: IRankListProps) => {
         title: '学生',
         align: 'center',
         fixed: true,
-        width: 150,
+        width: 120,
         dataIndex: 'name',
         className: 'top-three',
         render(text: string, record: TStudentHomework) {
@@ -91,6 +91,7 @@ const RankList = (props: IRankListProps) => {
       {
         title: '状态',
         align: 'center',
+        width: 100,
         dataIndex: 'points_available',
         key: 'points_available',
         render(_text: string, record: TStudentHomework) {
@@ -136,31 +137,31 @@ const RankList = (props: IRankListProps) => {
           return '-'
         }
       },
-      {
-        title: '语言',
-        align: 'center',
-        dataIndex: 'languages',
-        key: 'languages',
-        render(_text: string[]) {
-          return (
-            <Tag
-              style={{ height: 18, display: 'inline-flex', alignItems: 'center' }}
-              color={languageColorArra[0]}
-            >
-              {_text?.[0]}
-            </Tag>
-          )
-          // return text?.slice(0, 3).map((l, index) => (
-          //   <Tag
-          //     style={{ height: 18, lineHeight: '18px' }}
-          //     color={languageColorArra[index]}
-          //     key={l}
-          //   >
-          //     {l}
-          //   </Tag>
-          // ))
-        }
-      },
+      // {
+      //   title: '语言',
+      //   align: 'center',
+      //   dataIndex: 'languages',
+      //   key: 'languages',
+      //   render(_text: string[]) {
+      //     return (
+      //       <Tag
+      //         style={{ height: 18, display: 'inline-flex', alignItems: 'center' }}
+      //         color={languageColorArra[0]}
+      //       >
+      //         {_text?.[0]}
+      //       </Tag>
+      //     )
+      //     // return text?.slice(0, 3).map((l, index) => (
+      //     //   <Tag
+      //     //     style={{ height: 18, lineHeight: '18px' }}
+      //     //     color={languageColorArra[index]}
+      //     //     key={l}
+      //     //   >
+      //     //     {l}
+      //     //   </Tag>
+      //     // ))
+      //   }
+      // },
       {
         title: '提交时间',
         align: 'center',
@@ -294,7 +295,7 @@ const RankList = (props: IRankListProps) => {
       {renderComplateStatus()}
       <Table
         className="rank-table"
-        scroll={{ x: 1000 }}
+        scroll={{ x: 1440 }}
         rowKey="name"
         dataSource={dataSource}
         columns={columns}

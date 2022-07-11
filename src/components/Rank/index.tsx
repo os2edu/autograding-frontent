@@ -7,6 +7,7 @@ import { TAssignment, TClassroom } from './types'
 import data from '../../scripts/data.json'
 
 import './index.less'
+import './responsive.less'
 
 const { DirectoryTree } = Tree
 

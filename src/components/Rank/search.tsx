@@ -40,7 +40,7 @@ const SearchList = (props: Partial<IProps>) => {
           // onSearch={(v) => onSearch('assignment', v)}
           style={{ width: 200 }}
         /> */}
-        {!props.noLang && 
+        {false && !props.noLang && 
         <Select
           mode="multiple"
           allowClear
