@@ -132,16 +132,24 @@ const RankList = (props: IRankListProps) => {
         align: 'center',
         dataIndex: 'languages',
         key: 'languages',
-        render(text: string[]) {
-          return text?.slice(0, 3).map((l, index) => (
+        render(_text: string[]) {
+          return (
             <Tag
               style={{ height: 18, lineHeight: '18px' }}
-              color={languageColorArra[index]}
-              key={l}
+              color={languageColorArra[0]}
             >
-              {l}
+              Rust
             </Tag>
-          ))
+          )
+          // return text?.slice(0, 3).map((l, index) => (
+          //   <Tag
+          //     style={{ height: 18, lineHeight: '18px' }}
+          //     color={languageColorArra[index]}
+          //     key={l}
+          //   >
+          //     {l}
+          //   </Tag>
+          // ))
         }
       },
       {

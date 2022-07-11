@@ -9,6 +9,7 @@ const user = require('../cache/user.json')
 const language = require('../cache/language.json')
 const workflow = require('../cache/workflow.json')
 const job = require('../cache/job.json')
+const { resolve } = require('node:path/win32')
 
 //TODO: 相对于整个项目的路径
 const ASSIGNMENT_DIR = '../assignments'
@@ -45,6 +46,10 @@ async function parseAssignment(filename) {
           reject(error)
         }
         // console.log("result:::"+result)
+        if(!result) {
+          console.log('parseCSVContent maybe fail...')
+          return resolve()
+        }
         const assignments = result.slice(1)
         if (assignments.length) {
           const classroomStr = assignments[0].assignment_url.split('/')[4]
@@ -126,12 +131,13 @@ async function run() {
     const csvFiles = files.filter((file) => {
       return path.extname(file).toLowerCase() === EXTENSION
     })
-    const result = await Promise.all(
+    let result = await Promise.all(
       csvFiles.map(async (filename) => {
         return await parseAssignment(filename)
       })
     )
 
+    result = result.filter(result => !!result)
     const classroomGroup = _.groupBy(result, 'id')
 
     const classrooms = _.map(_.values(classroomGroup), (classrooms) => {
