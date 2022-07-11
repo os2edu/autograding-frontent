@@ -36,7 +36,7 @@ const RankList = (props: IRankListProps) => {
         title: '排名',
         dataIndex: 'rank',
         fixed: true,
-        width: 100,
+        width: 80,
         align: 'center',
         key: 'rank',
         render(text: number) {

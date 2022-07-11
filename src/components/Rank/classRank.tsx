@@ -30,7 +30,7 @@ const ClassRoomRank = (props: IProps) => {
         dataIndex: 'rank',
         align: 'center',
         fixed: true,
-        width: 100,
+        width: 80,
         key: 'rank',
         render(text: number) {
           let content: React.ReactNode = text
@@ -96,6 +96,11 @@ const ClassRoomRank = (props: IProps) => {
           }
         }
       }) as ColumnsType<IDatasource>),
+      {
+        title: '',
+        dataIndex: 'none',
+        key: 'none'
+      }
     ],
     // eslint-disable-next-line
     [classroomId]
