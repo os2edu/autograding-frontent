@@ -39,16 +39,16 @@ const RankList = (props: IRankListProps) => {
         width: 100,
         align: 'center',
         key: 'rank',
-        render(_text: any, _record: TStudentHomework, index: number) {
-          let content: any = index + 1
-          switch (index) {
-            case 0:
+        render(text: number) {
+          let content: React.ReactNode = text
+          switch (text) {
+            case 1:
               content = <Icon symbol="icon-autojiangbei-" />
               break
-            case 1:
+            case 2:
               content = <Icon symbol="icon-autojiangbei-1" />
               break
-            case 2:
+            case 3:
               content = <Icon symbol="icon-autojiangbei-2" />
               break
             default:
@@ -73,7 +73,9 @@ const RankList = (props: IRankListProps) => {
               {record.studentInfo.avatar_url && (
                 <img src={record.studentInfo.avatar_url} alt="avatar" />
               )}
-              {text}
+              <span title={text} className='student-info-name'>
+                {text}
+              </span>
             </span>
           )
         }
@@ -142,7 +144,7 @@ const RankList = (props: IRankListProps) => {
         render(_text: string[]) {
           return (
             <Tag
-              style={{ height: 18, lineHeight: '18px' }}
+              style={{ height: 18, display: 'inline-flex', alignItems: 'center' }}
               color={languageColorArra[0]}
             >
               {_text?.[0]}
@@ -203,22 +205,22 @@ const RankList = (props: IRankListProps) => {
           return '-'
         }
       },
-      {
-        title: '仓库',
-        align: 'center',
-        width: 100,
-        dataIndex: 'operate',
-        key: 'operate',
-        render(_text: any, record: TStudentHomework) {
-          return (
-            <Icon
-              style={{ cursor: 'pointer' }}
-              symbol="icon-autogithub"
-              onClick={() => window.open(record.repoURL)}
-            />
-          )
-        }
-      }
+      // {
+      //   title: '仓库',
+      //   align: 'center',
+      //   width: 100,
+      //   dataIndex: 'operate',
+      //   key: 'operate',
+      //   render(_text: any, record: TStudentHomework) {
+      //     return (
+      //       <Icon
+      //         style={{ cursor: 'pointer' }}
+      //         symbol="icon-autogithub"
+      //         onClick={() => window.open(record.repoURL)}
+      //       />
+      //     )
+      //   }
+      // }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.assignment?.id]
@@ -231,6 +233,10 @@ const RankList = (props: IRankListProps) => {
         props.assignment?.student_repositories,
         ['points_awarded', 'submission_timestamp'],
         ['desc', 'asc']
+      ).map((item, index) => ({
+          ...item,
+          rank: index + 1
+        })
       ),
     // eslint-disable-next-line
     [assignmentId]

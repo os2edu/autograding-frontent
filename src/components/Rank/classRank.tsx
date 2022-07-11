@@ -32,16 +32,16 @@ const ClassRoomRank = (props: IProps) => {
         fixed: true,
         width: 100,
         key: 'rank',
-        render(_text: any, _record: IDatasource, index: number) {
-          let content: any = index + 1
-          switch (index) {
-            case 0:
+        render(text: number) {
+          let content: React.ReactNode = text
+          switch (text) {
+            case 1:
               content = <Icon symbol="icon-autojiangbei-" />
               break
-            case 1:
+            case 2:
               content = <Icon symbol="icon-autojiangbei-1" />
               break
-            case 2:
+            case 3:
               content = <Icon symbol="icon-autojiangbei-2" />
               break
             default:
@@ -66,7 +66,9 @@ const ClassRoomRank = (props: IProps) => {
               {record.avatar && (
                 <img src={record.avatar} alt="avatar" />
               )}
-              {text}
+              <span title={text} className='student-info-name'>
+                {text}
+              </span>
             </span>
         }
       },
@@ -120,7 +122,7 @@ const ClassRoomRank = (props: IProps) => {
         averageScore: Math.floor(totalScore / props.classroom!.assignments.length),
       }
     })
-    return orderBy(studentAchievement, ['averageScore'], ['desc'])
+    return orderBy(studentAchievement, ['averageScore'], ['desc']).map((item, index) => ({...item, rank: index + 1}))
     //eslint-disable-next-line
   }, [classroomId])
 

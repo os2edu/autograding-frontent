@@ -38,6 +38,7 @@ export type TStudentHomework = {
   submission_timestamp: string;
   points_awarded: string,
   points_available: string
+  rank?: number;
 }
 
 export type TAssignment = {
