@@ -27,7 +27,7 @@ jobs:
         uses: ./src/scripts/csv
       - name: create env file
         run: |
-          echo AUTH=${{ secrets.ACTION_ACCESS }} >> .env
+          echo AUTH=${{ secrets.AUTH_TOKEN }} >> .env
           echo ORG=LearningOS >> .env
       - name: csv to json
         uses: ./src/scripts/parse
