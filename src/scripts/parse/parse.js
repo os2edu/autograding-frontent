@@ -9,7 +9,9 @@ const user = require('../cache/user.json')
 const language = require('../cache/language.json')
 const workflow = require('../cache/workflow.json')
 const job = require('../cache/job.json')
-const { resolve } = require('node:path/win32')
+console.log(user)
+console.log(job)
+console.log('cache log')
 
 //TODO: 相对于整个项目的路径
 const ASSIGNMENT_DIR = '../assignments'
