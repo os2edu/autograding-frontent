@@ -8,7 +8,8 @@ import Search, { ISearchProps } from './search'
 import AssignmentBar from './assignmentBar'
 
 interface IProps {
-  classroom?: TClassroom
+  classroom?: TClassroom;
+  isMobile?: boolean;
 }
 
 interface IDatasource {
@@ -141,8 +142,8 @@ const ClassRoomRank = (props: IProps) => {
   })
 
   return (
-    <div className="rank-list">
-      <Search defaultQuery={query} onChange={(query) => setQuery(query)} noLang />
+    <>
+      <Search isMobile={props.isMobile} defaultQuery={query} onChange={(query) => setQuery(query)} noLang />
       <Table
         className="rank-table"
         scroll={{ x: 1000 }}
@@ -151,7 +152,7 @@ const ClassRoomRank = (props: IProps) => {
         columns={columns}
         size="middle"
       />
-    </div>
+    </>
   )
 }
 

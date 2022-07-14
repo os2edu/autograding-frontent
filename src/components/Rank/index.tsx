@@ -5,14 +5,14 @@ import RankList from './rank'
 import ClassRankList from './classRank'
 import { TAssignment, TClassroom } from './types'
 import data from '../../scripts/data.json'
+import MobileNav from './mobileNav'
 
 import './index.less'
-import './responsive.less'
 
 const { DirectoryTree } = Tree
 
 // @ts-ignore
-const classroomData  = data as TClassroom[]
+const classroomData = data as TClassroom[]
 
 const findClassroom = (key: string): TClassroom | undefined => {
   return classroomData.find(({ id }) => id === key)
@@ -29,7 +29,8 @@ const findAssignment = (key: string): TAssignment | undefined => {
 
 // const defaultSelectedAssignment = classRoom[0].assignments[0].id
 const defaultSelectedClass = data[0].id
-const Rank = () => {
+const Rank = ({ isMobile }: { isMobile?: boolean }) => {
+  const navRef = React.useRef<{ changeVisible: (visible: boolean) => void }>()
   const treeData: DataNode[] = data.map((item) => {
     return {
       title: item.title,
@@ -52,24 +53,43 @@ const Rank = () => {
     setTreeNodeId(keys[0] as string)
     //@ts-ignore
     setIsClassNode(info.node.isClass)
+    if (isMobile) {
+      navRef.current?.changeVisible(false)
+    }
   }
 
   return (
     <div className="rank-container">
-      <DirectoryTree
-        className="classroom-tree"
-        multiple
-        expandAction={false}
-        defaultSelectedKeys={[treeNodeId]}
-        defaultExpandAll
-        onSelect={onSelect}
-        treeData={treeData}
-      />
-      {isClassNode ? (
-        <ClassRankList classroom={findClassroom(treeNodeId)} />
+      {isMobile ? (
+        <MobileNav ref={navRef}>
+          <DirectoryTree
+            className="classroom-tree"
+            multiple
+            expandAction={false}
+            defaultSelectedKeys={[treeNodeId]}
+            defaultExpandAll
+            onSelect={onSelect}
+            treeData={treeData}
+          />
+        </MobileNav>
       ) : (
-        <RankList assignment={findAssignment(treeNodeId)} />
+        <DirectoryTree
+          className="classroom-tree"
+          multiple
+          expandAction={false}
+          defaultSelectedKeys={[treeNodeId]}
+          defaultExpandAll
+          onSelect={onSelect}
+          treeData={treeData}
+        />
       )}
+      <main className="rank-list">
+        {isClassNode ? (
+          <ClassRankList isMobile={isMobile} classroom={findClassroom(treeNodeId)} />
+        ) : (
+          <RankList isMobile={isMobile} assignment={findAssignment(treeNodeId)} />
+        )}
+      </main>
     </div>
   )
 }

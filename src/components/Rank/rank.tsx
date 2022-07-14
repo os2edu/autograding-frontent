@@ -25,6 +25,7 @@ dayjs.extend(relativeTime)
 
 interface IRankListProps {
   assignment?: TAssignment
+  isMobile?: boolean
 }
 
 const RankList = (props: IRankListProps) => {
@@ -73,7 +74,7 @@ const RankList = (props: IRankListProps) => {
               {record.studentInfo.avatar_url && (
                 <img src={record.studentInfo.avatar_url} alt="avatar" />
               )}
-              <span title={text} className='student-info-name'>
+              <span title={text} className="student-info-name">
                 {text}
               </span>
             </span>
@@ -205,7 +206,7 @@ const RankList = (props: IRankListProps) => {
           }
           return '-'
         }
-      },
+      }
       // {
       //   title: '仓库',
       //   align: 'center',
@@ -235,10 +236,9 @@ const RankList = (props: IRankListProps) => {
         ['points_awarded', 'submission_timestamp'],
         ['desc', 'asc']
       ).map((item, index) => ({
-          ...item,
-          rank: index + 1
-        })
-      ),
+        ...item,
+        rank: index + 1
+      })),
     // eslint-disable-next-line
     [assignmentId]
   )
@@ -267,6 +267,21 @@ const RankList = (props: IRankListProps) => {
     )
 
     const percent = (passRepos!.length / props.assignment!.student_repositories.length) * 100
+    if (props.isMobile) {
+      return (
+        <div className="total-passed-info">
+          <Progress
+            strokeColor={'rgb(82, 196, 26)'}
+            trailColor="#ff4d4f"
+            type="circle"
+            width={40}
+            style={{ fontSize: '12px' }}
+            format={() => passRepos?.length}
+            percent={percent}
+          />
+        </div>
+      )
+    }
 
     return (
       <div className="total-passed-info">
@@ -286,8 +301,9 @@ const RankList = (props: IRankListProps) => {
     )
   }
   return (
-    <div className="rank-list">
+    <>
       <Search
+        isMobile={props.isMobile}
         defaultQuery={query}
         onChange={(query) => setQuery(query)}
         langs={dataSource[0]?.languages}
@@ -301,7 +317,7 @@ const RankList = (props: IRankListProps) => {
         columns={columns}
         size="middle"
       />
-    </div>
+    </>
   )
 }
 

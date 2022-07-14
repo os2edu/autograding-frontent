@@ -3,7 +3,6 @@
   padding: 20px 4px;
 
   width: 90%;
-  min-width: 1240px;
   margin: 0 auto;
 
   .classroom-tree {
@@ -78,4 +77,27 @@
   display: flex;
   padding: 0;
   justify-content: center;
+}
+
+.classroom-toggle {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.classroom-nav-drawer {
+  .ant-drawer-header {
+    padding: 8px 12px;
+    .back {
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      .icon {
+        font-size: 20px;
+        transform: rotate(90deg);
+      }
+    }
+  }
 }
