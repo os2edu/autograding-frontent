@@ -101,3 +101,141 @@
     }
   }
 }
+
+.rank-table-mobile {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .rank-table-row {
+    border-top: 1px solid #0000000f;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    &-assigment {
+      height: 70px;
+    }
+    &.championship {
+      .list-order-index,
+      .rank-info,
+      .order-hat {
+        color: orange;
+      }
+    }
+    &.second-place {
+      .list-order-index,
+      .rank-info,
+      .order-hat {
+        color: #c6c0b3;
+      }
+    }
+
+    &.third-place {
+      .list-order-index,
+      .rank-info,
+      .order-hat {
+        color: #e6a10b;
+      }
+    }
+
+    .list-order-index {
+      width: 32px;
+      font-weight: bold;
+      &:after {
+        content: '.';
+      }
+    }
+    .info-avartar {
+      width: 36px;
+      margin: 0 10px;
+      img {
+        border-radius: 50%;
+        width: 100%;
+      }
+      .order-hat {
+        display: inline-block;
+        position: absolute;
+        transform: translate(-8px, -6px) rotate(-45deg);
+        font-size: 18px;
+      }
+    }
+
+    .rank-info {
+      flex: 1;
+      width: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+    .rank-info-more {
+      justify-content: space-around;
+      span {
+        line-height: 18px;
+        margin: 1px;
+        &.rank-info-name {
+          font-weight: bold;
+        }
+        &.rank-info-status {
+          & > span {
+            padding: 0 4px;
+            border-radius: 2px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid;
+          }
+          .green {
+            color: #389e0d;
+            background: #f6ffed;
+            border-color: #b7eb8f;
+          }
+          .red {
+            color: #cf1322;
+            background: #fff1f0;
+            border-color: #ffa39e;
+          }
+        }
+        &.rank-info-detail {
+          font-size: 12px;
+          color: #aaa;
+          & > span {
+            margin: 0 3px;
+          }
+          .commits {
+            color: #1890ff;
+          }
+        }
+      }
+    }
+    .rank-action {
+      width: 26px;
+    }
+    .rank-score {
+      width: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      text-align: right;
+      &-success {
+        color: #e26208;
+      }
+    }
+    .rank-homeworks {
+      width: 120px;
+      overflow: auto;
+      .homework-item {
+        display: inline-block;
+        margin: 1px;
+      }
+      .homework-undo {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 1px dashed #aaa;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}

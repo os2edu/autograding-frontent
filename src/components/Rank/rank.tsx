@@ -300,6 +300,91 @@ const RankList = (props: IRankListProps) => {
       </div>
     )
   }
+
+  const setClassname = (rank: number) => {
+    const ranks = ['championship', 'second-place', 'third-place']
+    return ranks[rank] || ''
+  }
+
+  const renderMobileRankList = () => {
+    const renderStatus = (item: TStudentHomework) => {
+      const passed =
+        Number(item.points_awarded) > 0 && item.points_awarded === item.points_available
+      return <span className={passed ? 'green' : 'red'}>{passed ? '成功' : '失败'}</span>
+    }
+    const renderCommits = (record: TStudentHomework) => {
+      return record.commits.length > 0 ? (
+        <span onClick={() => window.open(`${record.repoURL}/commits?author=${record.name}`)}>
+          {record.commits.length} {record.commits.length > 1 ? 'commits' : 'commit'}
+        </span>
+      ) : (
+        '-'
+      )
+    }
+    const renderExecuteSpendTime = (record: TStudentHomework) => {
+      const latestRun = record.runs[0]
+      if (latestRun) {
+        const { completed_at, started_at } = latestRun.jobs[0]
+        const executeSecond = Math.floor(
+          dayjs(completed_at).diff(dayjs(started_at), 'second', true)
+        )
+        return `${executeSecond}s`
+      }
+      return '-'
+    }
+    const renderSubmission = (record: TStudentHomework) => {
+      return record.submission_timestamp ? dayjs(record.submission_timestamp).fromNow() : '-'
+    }
+
+    const renderAction = (record: TStudentHomework) => {
+      const latestRun = record.runs[0]
+      if (latestRun) {
+        const url = latestRun.jobs[0].html_url
+        return (
+          <Icon
+            style={{ cursor: 'pointer' }}
+            symbol="icon-autowj-rz"
+            onClick={() => window.open(url)}
+          />
+        )
+      }
+      return '-'
+    }
+
+    return (
+      <ul className="rank-table-mobile">
+        {dataSource.map((item) => {
+          return (
+            <li
+              className={`rank-table-row rank-table-row-assigment ${setClassname(
+                (item.rank || 0) - 1
+              )}`}
+              key={item.name + item.rank}
+            >
+              <span className="list-order-index">{item.rank}</span>
+              <span className="info-avartar">
+                {(item.rank || 1000) <= 3 && (
+                  <Icon className="order-hat" symbol="icon-autorexiao-huangguan" />
+                )}
+                <img src={item.studentInfo.avatar_url} alt="avatar" />
+              </span>
+              <div className="rank-info rank-info-more">
+                <span className="rank-info-name">{item.name}</span>
+                <span className="rank-info-status">{renderStatus(item)}</span>
+                <span className="rank-info-detail">
+                  <span className="commits">{renderCommits(item)}</span>
+                  <span className="executeSpend-time">{renderExecuteSpendTime(item)}</span>
+                  <span className="submission-time">{renderSubmission(item)}</span>
+                </span>
+              </div>
+              <span className="rank-action">{renderAction(item)}</span>
+              <span className={`rank-score ${item.points_awarded === '100' ? 'rank-score-success' : ''}`}>{item.points_awarded}</span>
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
   return (
     <>
       <Search
@@ -309,14 +394,19 @@ const RankList = (props: IRankListProps) => {
         langs={dataSource[0]?.languages}
       />
       {renderComplateStatus()}
-      <Table
-        className="rank-table"
-        scroll={{ x: 1440 }}
-        rowKey="name"
-        dataSource={dataSource}
-        columns={columns}
-        size="middle"
-      />
+
+      {props.isMobile ? (
+        renderMobileRankList()
+      ) : (
+        <Table
+          className="rank-table"
+          scroll={{ x: 1440 }}
+          rowKey="name"
+          dataSource={dataSource}
+          columns={columns}
+          size="middle"
+        />
+      )}
     </>
   )
 }

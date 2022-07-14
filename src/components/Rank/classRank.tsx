@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Table } from 'antd'
+import { Table, Progress } from 'antd'
 import { orderBy, map, groupBy, keys, flatMap } from 'lodash'
 import Icon from '../../components/Icon'
 import type { ColumnsType } from 'antd/lib/table'
@@ -8,16 +8,17 @@ import Search, { ISearchProps } from './search'
 import AssignmentBar from './assignmentBar'
 
 interface IProps {
-  classroom?: TClassroom;
-  isMobile?: boolean;
+  classroom?: TClassroom
+  isMobile?: boolean
 }
 
 interface IDatasource {
-  name: string;
-  avatar?: string;
-  homeworks: TStudentHomework[];
-  totalScore: number;
-  averageScore: number;
+  name: string
+  avatar?: string
+  homeworks: TStudentHomework[]
+  totalScore: number
+  averageScore: number
+  rank?: number
 }
 
 const ClassRoomRank = (props: IProps) => {
@@ -60,17 +61,17 @@ const ClassRoomRank = (props: IProps) => {
         width: 150,
         key: 'repoOwner',
         render(text: string, record: IDatasource) {
-            return <span
+          return (
+            <span
               className="link student-info"
               onClick={() => window.open(`https://github.com/${text}`)}
             >
-              {record.avatar && (
-                <img src={record.avatar} alt="avatar" />
-              )}
-              <span title={text} className='student-info-name'>
+              {record.avatar && <img src={record.avatar} alt="avatar" />}
+              <span title={text} className="student-info-name">
                 {text}
               </span>
             </span>
+          )
         }
       },
       {
@@ -108,9 +109,7 @@ const ClassRoomRank = (props: IProps) => {
   )
 
   let dataSource: IDatasource[] = useMemo(() => {
-    const studentHomeworkds = flatMap(
-      map(props.classroom?.assignments, 'student_repositories')
-    )
+    const studentHomeworkds = flatMap(map(props.classroom?.assignments, 'student_repositories'))
     const studentGroups = groupBy(studentHomeworkds, 'name')
     const studentAchievement = map(keys(studentGroups), (studentName) => {
       const homeworks = studentGroups[studentName]
@@ -125,13 +124,15 @@ const ClassRoomRank = (props: IProps) => {
         avatar: homeworks[0]?.studentInfo.avatar_url,
         homeworks,
         totalScore,
-        averageScore: Math.floor(totalScore / props.classroom!.assignments.length),
+        averageScore: Math.floor(totalScore / props.classroom!.assignments.length)
       }
     })
-    return orderBy(studentAchievement, ['averageScore'], ['desc']).map((item, index) => ({...item, rank: index + 1}))
+    return orderBy(studentAchievement, ['averageScore'], ['desc']).map((item, index) => ({
+      ...item,
+      rank: index + 1
+    }))
     //eslint-disable-next-line
   }, [classroomId])
-
 
   dataSource = dataSource.filter((item: IDatasource) => {
     let searchName = true
@@ -141,17 +142,83 @@ const ClassRoomRank = (props: IProps) => {
     return searchName
   })
 
+  const setClassname = (rank: number) => {
+    const ranks = ['championship', 'second-place', 'third-place']
+    return ranks[rank] || ''
+  }
+
+  const renderMobileRankList = () => {
+    return (
+      <ul className="rank-table-mobile">
+        {dataSource.map((item) => {
+          return (
+            <li
+              className={`rank-table-row ${setClassname((item.rank || 0) - 1)}`}
+              key={item.name + item.rank}
+            >
+              <span className="list-order-index">{item.rank}</span>
+              <span className="info-avartar">
+                {(item.rank || 1000) <= 3 && (
+                  <Icon className="order-hat" symbol="icon-autorexiao-huangguan" />
+                )}
+                <img src={item.avatar} alt="avatar" />
+              </span>
+              <div className="rank-info">
+                <span>{item.name}</span>
+              </div>
+              <div className="rank-homeworks">
+                {map(props.classroom?.assignments, (assigment: TAssignment) => {
+                  const homework = item.homeworks.find(({ repoURL }) =>
+                    repoURL.includes(assigment.title)
+                  )
+                  if (homework && homework.submission_timestamp) {
+                    return (
+                      <span className="homework-item" key={assigment.id}>
+                        <Progress
+                          strokeColor={'rgb(82, 196, 26)'}
+                          trailColor="#ff4d4f"
+                          type="circle"
+                          width={24}
+                          style={{ fontSize: '12px' }}
+                          percent={Number(homework.points_awarded || 0)}
+                        />
+                      </span>
+                    )
+                  }
+                  return (
+                    <span className="homework-item" key={assigment.id}>
+                      <span className="homework-undo">-</span>
+                    </span>
+                  )
+                })}
+              </div>
+              <span className={`rank-score ${item.averageScore === 100 ? 'rank-score-success' : ''}`}>{item.averageScore}</span>
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
   return (
     <>
-      <Search isMobile={props.isMobile} defaultQuery={query} onChange={(query) => setQuery(query)} noLang />
-      <Table
-        className="rank-table"
-        scroll={{ x: 1000 }}
-        rowKey={'name'}
-        dataSource={dataSource}
-        columns={columns}
-        size="middle"
+      <Search
+        isMobile={props.isMobile}
+        defaultQuery={query}
+        onChange={(query) => setQuery(query)}
+        noLang
       />
+      {props.isMobile ? (
+        renderMobileRankList()
+      ) : (
+        <Table
+          className="rank-table"
+          scroll={{ x: 1000 }}
+          rowKey={'name'}
+          dataSource={dataSource}
+          columns={columns}
+          size="middle"
+        />
+      )}
     </>
   )
 }
