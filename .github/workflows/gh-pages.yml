@@ -31,6 +31,13 @@ jobs:
           echo ORG=LearningOS >> .env
       - name: csv to json
         uses: ./src/scripts/parse
+      - name: save data files
+        run: |
+          git config user.name Faith
+          git config user.email seventanyb@gmail.com
+          git add .
+          git commit -am "updata data"
+          git push origin gh-pages
       - name: build pages
         run: yarn build
       - name: GitHub Pages
