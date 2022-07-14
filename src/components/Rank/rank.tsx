@@ -128,7 +128,7 @@ const RankList = (props: IRankListProps) => {
         key: 'executeSpendTime',
         render(_text: any, record: TStudentHomework) {
           const latestRun = record.runs[0]
-          if (latestRun) {
+          if (latestRun && latestRun.jobs?.[0]) {
             const { completed_at, started_at } = latestRun.jobs[0]
             const executeSecond = Math.floor(
               dayjs(completed_at).diff(dayjs(started_at), 'second', true)
@@ -194,7 +194,7 @@ const RankList = (props: IRankListProps) => {
         key: 'actions',
         render(_text: never, record: TStudentHomework) {
           const latestRun = record.runs[0]
-          if (latestRun) {
+          if (latestRun && latestRun.jobs?.[0]) {
             const url = latestRun.jobs[0].html_url
             return (
               <Icon
@@ -323,7 +323,7 @@ const RankList = (props: IRankListProps) => {
     }
     const renderExecuteSpendTime = (record: TStudentHomework) => {
       const latestRun = record.runs[0]
-      if (latestRun) {
+      if (latestRun && latestRun.jobs?.[0]) {
         const { completed_at, started_at } = latestRun.jobs[0]
         const executeSecond = Math.floor(
           dayjs(completed_at).diff(dayjs(started_at), 'second', true)
@@ -338,7 +338,7 @@ const RankList = (props: IRankListProps) => {
 
     const renderAction = (record: TStudentHomework) => {
       const latestRun = record.runs[0]
-      if (latestRun) {
+      if (latestRun && latestRun.jobs?.[0]) {
         const url = latestRun.jobs[0].html_url
         return (
           <Icon

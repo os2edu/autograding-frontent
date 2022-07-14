@@ -3,7 +3,6 @@ const { Octokit } = require('octokit')
 require('dotenv').config()
 
 const { ORG, AUTH } = process.env
-console.log(AUTH)
 console.log(ORG)
 const octokit = new Octokit({ auth: AUTH })
 
@@ -76,7 +75,7 @@ const get_workflow_runs = async (repoName, workflowId) => {
     // 最多取3条runs
     return res.data.workflow_runs
   } catch (err) {
-    console.log(`get_workflow_runs: ${err} in ${repoName}`)
+    console.log(`get_workflow_runs: ${err} in ${repoName} ${workflowId}`)
     return []
   }
 }
@@ -91,7 +90,7 @@ const getJobs = async (repoName, runId) => {
       _.pick(item, ['id', 'name', 'html_url', 'conclusion', 'status', 'completed_at', 'started_at'])
     )
   } catch (err) {
-    console.log(`getJobs: ${err} in ${repoName}`)
+    console.log(`getJobs: ${err} in ${repoName}, ${runId}`)
     return []
   }
 }
