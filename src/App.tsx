@@ -4,6 +4,7 @@ import Icon from './components/Icon'
 import Rank from './components/Rank'
 import dayjs from 'dayjs'
 import MobileDetect from 'mobile-detect'
+import Contact from './Contact'
 import 'dayjs/locale/zh-cn'
 
 import './app.less'
@@ -50,14 +51,16 @@ function App() {
           <span>训练营排行榜</span>
         </div>
       </div>
+      <Contact isMobile={mobile} />
       {mobile ? (
-        <ul className="main-menu">
-          {items.map((item) => (
-            <li className={`${item.key === activeKey ? 'active' : ''}`} key={item.key}>
-              {item.label}
-            </li>
-          ))}
-        </ul>
+        <div style={{ marginTop: 10 }} />
+        // <ul className="main-menu">
+        //   {items.map((item) => (
+        //     <li className={`${item.key === activeKey ? 'active' : ''}`} key={item.key}>
+        //       {item.label}
+        //     </li>
+        //   ))}
+        // </ul>
       ) : (
         <Menu
           className="main-menu"

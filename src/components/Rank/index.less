@@ -108,11 +108,16 @@
   padding: 0;
 
   .rank-table-row {
-    border-top: 1px solid #0000000f;
     padding: 0 12px;
     display: flex;
     align-items: center;
-    height: 60px;
+    height: 72px;
+    width: 96%;
+    margin: 0 auto;
+    border: 1px solid rgba(#ddd, 0.3);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px -10px rgb(150 170 180 / 50%);
     &-assigment {
       height: 70px;
     }
@@ -142,9 +147,6 @@
     .list-order-index {
       width: 32px;
       font-weight: bold;
-      &:after {
-        content: '.';
-      }
     }
     .info-avartar {
       width: 36px;
@@ -220,15 +222,14 @@
       }
     }
     .rank-homeworks {
-      width: 120px;
       overflow: auto;
       .homework-item {
         display: inline-block;
         margin: 1px;
       }
       .homework-undo {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         display: inline-block;
         border: 1px dashed #aaa;

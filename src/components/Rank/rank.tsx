@@ -362,7 +362,10 @@ const RankList = (props: IRankListProps) => {
               key={item.name + item.rank}
             >
               <span className="list-order-index">{item.rank}</span>
-              <span className="info-avartar">
+              <span
+                className="info-avartar"
+                onClick={() => window.open(`https://github.com/${item.name}`)}
+              >
                 {(item.rank || 1000) <= 3 && (
                   <Icon className="order-hat" symbol="icon-autorexiao-huangguan" />
                 )}
@@ -378,7 +381,13 @@ const RankList = (props: IRankListProps) => {
                 </span>
               </div>
               <span className="rank-action">{renderAction(item)}</span>
-              <span className={`rank-score ${item.points_awarded === '100' ? 'rank-score-success' : ''}`}>{item.points_awarded}</span>
+              <span
+                className={`rank-score ${
+                  item.points_awarded === '100' ? 'rank-score-success' : ''
+                }`}
+              >
+                {item.points_awarded}
+              </span>
             </li>
           )
         })}

@@ -157,7 +157,10 @@ const ClassRoomRank = (props: IProps) => {
               key={item.name + item.rank}
             >
               <span className="list-order-index">{item.rank}</span>
-              <span className="info-avartar">
+              <span
+                className="info-avartar"
+                onClick={() => window.open(`https://github.com/${item.name}`)}
+              >
                 {(item.rank || 1000) <= 3 && (
                   <Icon className="order-hat" symbol="icon-autorexiao-huangguan" />
                 )}
@@ -165,34 +168,38 @@ const ClassRoomRank = (props: IProps) => {
               </span>
               <div className="rank-info">
                 <span>{item.name}</span>
-              </div>
-              <div className="rank-homeworks">
-                {map(props.classroom?.assignments, (assigment: TAssignment) => {
-                  const homework = item.homeworks.find(({ repoURL }) =>
-                    repoURL.includes(assigment.title)
-                  )
-                  if (homework && homework.submission_timestamp) {
+                <div className="rank-homeworks">
+                  {map(props.classroom?.assignments, (assigment: TAssignment) => {
+                    const homework = item.homeworks.find(({ repoURL }) =>
+                      repoURL.includes(assigment.title)
+                    )
+                    if (homework && homework.submission_timestamp) {
+                      return (
+                        <span className="homework-item" key={assigment.id}>
+                          <Progress
+                            strokeColor={'rgb(82, 196, 26)'}
+                            trailColor="#ff4d4f"
+                            type="circle"
+                            width={20}
+                            style={{ fontSize: '12px' }}
+                            percent={Number(homework.points_awarded || 0)}
+                          />
+                        </span>
+                      )
+                    }
                     return (
                       <span className="homework-item" key={assigment.id}>
-                        <Progress
-                          strokeColor={'rgb(82, 196, 26)'}
-                          trailColor="#ff4d4f"
-                          type="circle"
-                          width={24}
-                          style={{ fontSize: '12px' }}
-                          percent={Number(homework.points_awarded || 0)}
-                        />
+                        <span className="homework-undo">-</span>
                       </span>
                     )
-                  }
-                  return (
-                    <span className="homework-item" key={assigment.id}>
-                      <span className="homework-undo">-</span>
-                    </span>
-                  )
-                })}
+                  })}
+                </div>
               </div>
-              <span className={`rank-score ${item.averageScore === 100 ? 'rank-score-success' : ''}`}>{item.averageScore}</span>
+              <span
+                className={`rank-score ${item.averageScore === 100 ? 'rank-score-success' : ''}`}
+              >
+                {item.averageScore}
+              </span>
             </li>
           )
         })}
