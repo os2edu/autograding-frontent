@@ -36,14 +36,20 @@
     }
   }
   .rank-container {
-    padding: 0;
+    // padding: 0;
     // padding-top: 10px;
+    margin: 0;
     width: 100%;
     .classroom-tree {
       display: none;
     }
     .rank-list {
       width: 100%;
+
+      .rank-table-mobile {
+        height: calc(100vh - 114px);
+        overflow: auto;
+      }
       .query-name-input {
         input {
           border-radius: 20px;

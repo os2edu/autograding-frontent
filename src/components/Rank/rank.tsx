@@ -333,7 +333,6 @@ const RankList = (props: IRankListProps) => {
       return '-'
     }
     const renderSubmission = (record: TStudentHomework) => {
-      console.log(record.submission_timestamp.replace(/\s|UTC/g, ''))
       return record.submission_timestamp
         ? dayjs(record.submission_timestamp.replace(/\s|UTC/g, '')).fromNow()
         : '-'

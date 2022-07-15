@@ -78,6 +78,7 @@ const ClassRoomRank = (props: IProps) => {
         title: '平均分',
         align: 'center',
         width: 100,
+        fixed: true,
         dataIndex: 'averageScore',
         className: 'top-three',
         key: 'averageScore'
