@@ -170,7 +170,7 @@ const RankList = (props: IRankListProps) => {
         dataIndex: 'submission_timestamp',
         key: 'submission_timestamp',
         render(text) {
-          return text ? dayjs(text).fromNow() : '-'
+          return text ? dayjs(text.replace(/\s|UTC/g, '')).fromNow() : '-'
         }
       },
       // {
@@ -333,7 +333,8 @@ const RankList = (props: IRankListProps) => {
       return '-'
     }
     const renderSubmission = (record: TStudentHomework) => {
-      return record.submission_timestamp ? dayjs(record.submission_timestamp).fromNow() : '-'
+      console.log(record.submission_timestamp.replace(/\s|UTC/g, ''))
+      return record.submission_timestamp ? dayjs(record.submission_timestamp.replace(/\s|UTC/g, '')).fromNow() : '-'
     }
 
     const renderAction = (record: TStudentHomework) => {

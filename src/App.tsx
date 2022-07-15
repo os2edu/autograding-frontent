@@ -25,18 +25,18 @@ function App() {
       key: 'rank',
       icon: <Icon symbol="icon-autorank1" />
     },
-    {
-      label: '点赞排行榜',
-      key: 'favorite',
-      icon: <Icon symbol="icon-auto34ranking" />,
-      disabled: true
-    },
-    {
-      label: '夜猫子排行榜',
-      key: 'catNight',
-      icon: <Icon symbol="icon-auto34ranking" />,
-      disabled: true
-    }
+    // {
+    //   label: '点赞排行榜',
+    //   key: 'favorite',
+    //   icon: <Icon symbol="icon-auto34ranking" />,
+    //   disabled: true
+    // },
+    // {
+    //   label: '夜猫子排行榜',
+    //   key: 'catNight',
+    //   icon: <Icon symbol="icon-auto34ranking" />,
+    //   disabled: true
+    // }
   ]
 
   const onClick = () => {}

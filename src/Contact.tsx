@@ -7,26 +7,37 @@ interface IProps {
   isMobile?: boolean
 }
 
+const hasReadContactKey = 'has-read-contact'
+
 const ContactIcon = ({ onClick, className }: { className?: string; onClick?: () => void }) => {
   return (
-    <Badge dot={true} className={`contact ${className || ''}`}>
-      <Icon symbol="icon-autobell1" onClick={onClick} />
+    <Badge dot={!localStorage.getItem(hasReadContactKey)} className={`contact ${className || ''}`}>
+      <Icon
+        symbol="icon-autobell1"
+        onClick={() => {
+          localStorage.setItem(hasReadContactKey, 'true')
+          onClick?.()
+        }}
+      />
     </Badge>
   )
 }
 
-const PCContact = () => {
-  const content = (
-    <div className="contact-card">
+const WeChatQRCode = ({ className }: { className?: string }) => {
+  return (
+    <div className={`contact-card ${className || ''}`}>
       <img src={contactImg} alt="contact-image" />
       <div className="contact-notice">
-        <span>对这个网址有好的想法和建议</span>
+        <span>对这个网站有好的想法和建议</span>
         <span>可以加李明老师的微信，欢迎反馈!</span>
       </div>
     </div>
   )
+}
+
+const PCContact = () => {
   return (
-    <Popover content={content} trigger="click" placement="bottomRight">
+    <Popover content={<WeChatQRCode />} trigger="click" placement="bottomRight">
       <ContactIcon />
     </Popover>
   )
@@ -45,13 +56,7 @@ const MobileContact = () => {
     <>
       <ContactIcon className="contact-mobile" onClick={onOpen} />
       <Drawer placement="bottom" visible={visible} onClose={onClose} height={320}>
-        <div className="contact-card contact-card-mobile">
-          <img src={contactImg} alt="contact-image" />
-          <div className="contact-notice">
-            <span>对这个网址有好的想法和建议</span>
-            <span>可以加李明老师的微信，欢迎反馈!</span>
-          </div>
-        </div>
+        <WeChatQRCode className="contact-card-mobile" />
       </Drawer>
     </>
   )
