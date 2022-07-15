@@ -6,6 +6,7 @@ import ClassRankList from './classRank'
 import { TAssignment, TClassroom } from './types'
 import data from '../../scripts/data.json'
 import MobileNav from './mobileNav'
+import Icon from '../Icon'
 
 import './index.less'
 
@@ -31,6 +32,7 @@ const findAssignment = (key: string): TAssignment | undefined => {
 const defaultSelectedClass = data[0].id
 const Rank = ({ isMobile }: { isMobile?: boolean }) => {
   const navRef = React.useRef<{ changeVisible: (visible: boolean) => void }>()
+  const [hideNav, setHideNav] = useState(true)
   const treeData: DataNode[] = data.map((item) => {
     return {
       title: item.title,
@@ -73,15 +75,20 @@ const Rank = ({ isMobile }: { isMobile?: boolean }) => {
           />
         </MobileNav>
       ) : (
-        <DirectoryTree
-          className="classroom-tree"
-          multiple
-          expandAction={false}
-          defaultSelectedKeys={[treeNodeId]}
-          defaultExpandAll
-          onSelect={onSelect}
-          treeData={treeData}
-        />
+        <div className={`classroom-tree-area ${hideNav ? 'classroom-tree-tree-hidden' : ''}`}>
+          <div className="fold-toggle" onClick={() => setHideNav(!hideNav)}>
+            <Icon symbol="icon-autos-fold" />
+          </div>
+          <DirectoryTree
+            className="classroom-tree"
+            multiple
+            expandAction={false}
+            defaultSelectedKeys={[treeNodeId]}
+            defaultExpandAll
+            onSelect={onSelect}
+            treeData={treeData}
+          />
+        </div>
       )}
       <main className="rank-list">
         {isClassNode ? (

@@ -43,7 +43,7 @@ const SearchList = (props: Partial<IProps>) => {
       }}
     />
   ) : (
-    <Space size={60} style={{ marginBottom: 20 }}>
+    <Space size={60} style={{ marginBottom: 20, paddingLeft: 40 }}>
       <Search
         value={query.name}
         placeholder="Name"

@@ -24,7 +24,7 @@ function App() {
       label: '排行榜',
       key: 'rank',
       icon: <Icon symbol="icon-autorank1" />
-    },
+    }
     // {
     //   label: '点赞排行榜',
     //   key: 'favorite',
@@ -39,37 +39,39 @@ function App() {
     // }
   ]
 
-  const onClick = () => {}
   const mobile = isMobile()
 
   return (
     <div className={`container ${mobile ? 'container-mobile' : ''}`}>
-      <div id="logo-box">
-        <Icon symbol="icon-autojiangbei" id="logo" />
-        <div className="logo-title">
-          <span>2022开源操作系统</span>
-          <span>训练营排行榜</span>
+      <header>
+        <div id="logo-box">
+          <Icon symbol="icon-autojiangbei" id="logo" />
+          <div className="logo-title">
+            <span>2022开源操作系统</span>
+            <span>训练营排行榜</span>
+          </div>
         </div>
-      </div>
-      <Contact isMobile={mobile} />
-      {mobile ? (
-        <div style={{ marginTop: 10 }} />
-        // <ul className="main-menu">
-        //   {items.map((item) => (
-        //     <li className={`${item.key === activeKey ? 'active' : ''}`} key={item.key}>
-        //       {item.label}
-        //     </li>
-        //   ))}
-        // </ul>
-      ) : (
-        <Menu
-          className="main-menu"
-          onClick={onClick}
-          selectedKeys={[activeKey]}
-          mode="horizontal"
-          items={items}
-        />
-      )}
+        <Contact isMobile={mobile} />
+        {mobile ? (
+          <div style={{ marginTop: 10 }} />
+        ) : (
+          // <ul className="main-menu">
+          //   {items.map((item) => (
+          //     <li className={`${item.key === activeKey ? 'active' : ''}`} key={item.key}>
+          //       {item.label}
+          //     </li>
+          //   ))}
+          // </ul>
+          <></>
+          // <Menu
+          //   className="main-menu"
+          //   onClick={onClick}
+          //   selectedKeys={[activeKey]}
+          //   mode="horizontal"
+          //   items={items}
+          // />
+        )}
+      </header>
       <Rank isMobile={mobile} />
     </div>
   )

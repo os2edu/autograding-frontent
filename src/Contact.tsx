@@ -55,7 +55,8 @@ const MobileContact = () => {
   return (
     <>
       <ContactIcon className="contact-mobile" onClick={onOpen} />
-      <Drawer placement="bottom" visible={visible} onClose={onClose} height={320}>
+      <Drawer className='contact-drawer' placement="bottom" visible={visible} onClose={onClose} height={280}>
+        <span className="close-icon" onClick={onClose}>x</span>
         <WeChatQRCode className="contact-card-mobile" />
       </Drawer>
     </>

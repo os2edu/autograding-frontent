@@ -334,7 +334,9 @@ const RankList = (props: IRankListProps) => {
     }
     const renderSubmission = (record: TStudentHomework) => {
       console.log(record.submission_timestamp.replace(/\s|UTC/g, ''))
-      return record.submission_timestamp ? dayjs(record.submission_timestamp.replace(/\s|UTC/g, '')).fromNow() : '-'
+      return record.submission_timestamp
+        ? dayjs(record.submission_timestamp.replace(/\s|UTC/g, '')).fromNow()
+        : '-'
     }
 
     const renderAction = (record: TStudentHomework) => {
@@ -397,13 +399,15 @@ const RankList = (props: IRankListProps) => {
   }
   return (
     <>
-      <Search
-        isMobile={props.isMobile}
-        defaultQuery={query}
-        onChange={(query) => setQuery(query)}
-        langs={dataSource[0]?.languages}
-      />
-      {renderComplateStatus()}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Search
+          isMobile={props.isMobile}
+          defaultQuery={query}
+          onChange={(query) => setQuery(query)}
+          langs={dataSource[0]?.languages}
+        />
+        {renderComplateStatus()}
+      </div>
 
       {props.isMobile ? (
         renderMobileRankList()

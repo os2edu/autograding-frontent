@@ -1,3 +1,4 @@
+@nav-gap: 30px;
 .rank-container {
   display: flex;
   padding: 20px 4px;
@@ -5,9 +6,46 @@
   width: 90%;
   margin: 0 auto;
 
+  .classroom-tree-area {
+    margin-right: @nav-gap;
+    position: relative;
+    .fold-toggle {
+      position: absolute;
+      right: -@nav-gap;
+      top: 0;
+      transform: translateX(100%);
+      z-index: 100;
+      width: 32px;
+      height: 32px;
+      background: rgba(#eee, 0.8);
+      &:hover {
+        background: rgba(#ddd, 0.8);
+      }
+      font-weight: bold;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+  .classroom-tree-tree-hidden {
+    margin-right: 0;
+    .fold-toggle {
+      right: 0;
+    }
+    .classroom-tree {
+      width: 0;
+    }
+    .fold-toggle .icon {
+      transform: rotate(180deg);
+    }
+  }
   .classroom-tree {
-    width: 260px;
-    margin-right: 20px;
+    overflow: hidden;
+    width: 240px;
+    height: 100%;
+    background-color: rgba(#ddd, 0.3);
+    transition: width 0.2s;
   }
   .rank-list {
     // flex: 1;
