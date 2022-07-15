@@ -1,8 +1,9 @@
 @nav-width: 280px;
+@header-height: 60px;
 
 .container {
   & > header {
-    height: 50px;
+    height: @header-height;
     border-bottom: 1px solid #f0f0f0;
   }
   .main-menu {
@@ -36,7 +37,7 @@
 #logo-box {
   position: absolute;
   left: 12px;
-  top: 4px;
+  height: @header-height;
   display: flex;
   align-items: center;
   color: rgb(46 40 40 / 85%);
@@ -58,7 +59,7 @@
 .contact {
   position: absolute;
   right: 30px;
-  top: 10px;
+  top: 15px;
   font-size: 28px;
   cursor: pointer;
   &-mobile {

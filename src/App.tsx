@@ -47,8 +47,7 @@ function App() {
         <div id="logo-box">
           <Icon symbol="icon-autojiangbei" id="logo" />
           <div className="logo-title">
-            <span>2022开源操作系统</span>
-            <span>训练营排行榜</span>
+            <span>2022开源操作系统训练营排行榜</span>
           </div>
         </div>
         <Contact isMobile={mobile} />
